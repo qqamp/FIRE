@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>別再替你討厭的人打工了｜FIRE 全程試算</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f1115; --ink2:#161a20; --panel:#1a1f26; --panel2:#21272f;
+    --line:#2c333d; --line2:#3a434f;
+    --txt:#f1efe8; --txt2:#c4cad3; --txt3:#959ca7;
+    --gold:#e0b25a; --gold-bright:#f2cc7b; --gold-dim:rgba(224,178,90,0.16);
+    --ok:#7fbf9a; --bad:#e08982; --bad-dim:rgba(224,137,130,0.16);
+    --acc:#6e9bc0; --acc-dim:rgba(110,155,192,0.16);
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --disp:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--txt);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.6}
+  body{background-image:radial-gradient(1100px 560px at 84% -14%, rgba(224,178,90,0.05), transparent 62%);min-height:100vh;padding:30px 22px 64px;font-size:15px}
+  .wrap{max-width:1140px;margin:0 auto}
+  header{padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .brand h1{font-family:var(--disp);font-weight:500;font-size:33px;letter-spacing:-0.01em;line-height:1.08}
+  .brand h1 em{font-style:italic;color:var(--gold-bright);font-weight:400}
+  .brand p{color:var(--txt2);font-size:15px;margin-top:10px;max-width:680px;line-height:1.65}
+  .grid{display:grid;grid-template-columns:344px 1fr;gap:24px;align-items:start}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .seclabel{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:9px}
+  .seclabel::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+  .field{margin-bottom:20px} .field:last-child{margin-bottom:0}
+  .field label{display:block;font-size:15px;color:var(--txt);margin-bottom:3px;font-weight:600}
+  .field .sub{font-size:13px;color:var(--txt2);margin-bottom:9px;line-height:1.5}
+  .inrow{display:flex;align-items:center;gap:10px}
+  input[type=number],select,input[type=text]{width:100%;background:var(--ink2);border:1px solid var(--line2);color:var(--txt);font-family:var(--mono);font-size:16px;padding:11px 13px;border-radius:9px;outline:none;transition:.15s}
+  input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-dim)}
+  select{cursor:pointer;font-family:var(--sans);font-size:14.5px}
+  optgroup{font-family:var(--sans);color:var(--gold-bright);background:var(--ink2);font-style:normal} option{color:var(--txt)}
+  .suffix{color:var(--txt2);font-family:var(--mono);font-size:14px;white-space:nowrap}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;background:var(--line2);outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);border:2px solid var(--ink);box-shadow:0 0 0 1px var(--gold)}
+  input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold);border:2px solid var(--ink)}
+  .slval{font-family:var(--mono);font-size:14px;color:var(--gold-bright);min-width:100px;text-align:right}
+  .phint{font-size:12.5px;color:var(--txt2);margin-top:7px;line-height:1.55}
+  .pnote{font-size:13px;color:var(--txt2);line-height:1.6;background:var(--ink2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 13px}
+  .allocbar{height:11px;border-radius:6px;overflow:hidden;display:flex;margin:11px 0 9px;border:1px solid var(--line2)}
+  .allocbar i{display:block;height:100%}
+  .alloc-s{background:var(--gold)} .alloc-b{background:var(--acc)} .alloc-c{background:#6a727c}
+  .alloclegend{display:flex;gap:16px;font-size:13px;color:var(--txt2);font-family:var(--mono)}
+  .alloclegend b{color:var(--txt);font-weight:500}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:middle}
+  .chk{display:flex;align-items:center;gap:9px;font-size:14.5px;color:var(--txt);cursor:pointer;user-select:none;font-weight:600;line-height:1.45} .chk input{width:auto;accent-color:var(--gold);transform:scale(1.15)}
+  .flow{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:13px;margin-bottom:10px;position:relative}
+  .flow .flowgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px} .flow .full{grid-column:1/3}
+  .flow input,.flow select{font-size:13.5px;padding:8px 10px} .flow label{font-size:12.5px;margin-bottom:4px;font-weight:600;color:var(--txt2)}
+  .flow .rm{position:absolute;top:9px;right:10px;background:none;border:none;color:var(--txt3);cursor:pointer;font-size:18px;line-height:1;padding:2px 5px;border-radius:6px}
+  .flow .rm:hover{color:var(--bad);background:var(--bad-dim)}
+  .chk2{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--txt2);cursor:pointer} .chk2 input{width:auto;accent-color:var(--gold)}
+  .addbtn{width:100%;background:var(--ink2);border:1px dashed var(--line2);color:var(--txt2);padding:11px;border-radius:9px;cursor:pointer;font-family:var(--mono);font-size:13px;transition:.15s}
+  .addbtn:hover{border-color:var(--gold);color:var(--gold-bright)}
+
+  .zone{margin-bottom:22px}
+  .modebar{display:flex;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap}
+  .seg{display:inline-flex;background:var(--ink2);border:1px solid var(--line2);border-radius:11px;padding:3px}
+  .seg button{background:transparent;border:none;color:var(--txt2);font-family:var(--mono);font-size:14px;padding:9px 18px;border-radius:8px;cursor:pointer;font-weight:500;transition:.15s}
+  .seg button.on{background:var(--gold-dim);color:var(--gold-bright)}
+  .seg button:not(.on):hover{color:var(--txt)}
+  .modenote{font-size:13.5px;color:var(--txt2);line-height:1.55;flex:1;min-width:220px}
+  .zone .q{font-family:var(--mono);font-size:12.5px;letter-spacing:0.08em;color:var(--gold);margin-bottom:11px;text-transform:uppercase;font-weight:500}
+  .herobox{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:16px;padding:28px 30px;position:relative;overflow:hidden}
+  .herobox::before{content:"";position:absolute;inset:0;background:radial-gradient(460px 230px at 88% 0%,var(--gold-dim),transparent 70%);pointer-events:none}
+  .lead{font-family:var(--disp);font-size:29px;font-weight:500;line-height:1.4;letter-spacing:-0.01em;position:relative}
+  .lead b{color:var(--gold-bright);font-weight:600;font-size:1.22em}
+  .lead .yrs{color:var(--txt2);font-size:0.62em;font-family:var(--mono);font-weight:400}
+  .herometa{display:flex;align-items:center;gap:20px;margin-top:22px;flex-wrap:wrap;position:relative}
+  .vtag{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:15px;padding:9px 17px;border-radius:24px;font-weight:500}
+  .vtag .pct{font-size:21px;font-weight:600}
+  .herorange{font-size:14px;color:var(--txt2);font-family:var(--mono)}
+  .heronote{font-size:14.5px;color:var(--txt2);margin-top:16px;line-height:1.65;max-width:580px;position:relative}
+
+  .gapcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .gaphead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .gaphead .fi{font-family:var(--disp);font-size:26px;font-weight:600;color:var(--txt);margin-top:2px}
+  .gaphead .fi small{font-size:14px;color:var(--txt2);font-family:var(--mono);font-weight:400}
+  .gaphead .label{font-family:var(--mono);font-size:12px;letter-spacing:0.04em;color:var(--gold);text-transform:uppercase}
+  .bar{position:relative;height:34px;background:var(--ink2);border:1px solid var(--line2);border-radius:9px;overflow:hidden;margin:8px 0 6px}
+  .barfill{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,rgba(110,155,192,0.55),rgba(224,178,90,0.6));border-right:2px solid var(--gold-bright)}
+  .barfill.over{background:linear-gradient(90deg,rgba(110,155,192,0.55),rgba(127,191,154,0.6));border-right-color:var(--ok)}
+  .bartick{position:absolute;top:-2px;height:38px;width:2px;background:var(--bad)}
+  .barlbls{display:flex;justify-content:space-between;font-size:13px;color:var(--txt2);font-family:var(--mono);margin-top:8px}
+  .gaprange{font-size:15px;color:var(--txt);margin-top:14px;line-height:1.7}
+  .gaprange b{color:var(--gold-bright);font-weight:600}
+  .fireline{margin-top:15px;padding:13px 16px;background:var(--acc-dim);border-left:3px solid var(--acc);border-radius:0 9px 9px 0;font-size:14px;color:var(--txt);line-height:1.65}
+  .fireline .term{color:var(--gold-bright);font-weight:600;font-family:var(--mono);font-size:13.5px}
+  .fireline b{color:var(--gold-bright);font-weight:600}
+  .fireline + .fireline{margin-top:9px}
+  .firetitle{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:var(--gold);text-transform:uppercase;margin-top:16px;margin-bottom:2px}
+
+  .tradeoff{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+  @media(max-width:620px){.tradeoff{grid-template-columns:1fr}}
+  .tcard{background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:17px}
+  .tcard .k{font-family:var(--mono);font-size:12px;letter-spacing:0.03em;color:var(--gold);margin-bottom:10px;font-weight:500}
+  .tcard .lever{font-size:14px;color:var(--txt2);margin-bottom:8px;line-height:1.5}
+  .tcard .res{font-family:var(--disp);font-size:20px;font-weight:600;color:var(--txt);line-height:1.3}
+  .tcard .res b{color:var(--gold-bright)}
+  .waitline{margin-top:14px;padding:14px 17px;background:rgba(224,137,130,0.08);border:1px solid rgba(224,137,130,0.24);border-radius:11px;font-size:14.5px;color:var(--txt);line-height:1.65}
+  .waitline b{color:var(--bad)}
+
+  .chartcard .chart-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;gap:12px;flex-wrap:wrap}
+  .chart-head h3{font-family:var(--sans);font-size:16px;font-weight:600;color:var(--txt)}
+  .chart-head .leg{font-family:var(--mono);font-size:12px;color:var(--txt2);display:flex;gap:15px;flex-wrap:wrap}
+  .chart-head .leg i{width:15px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}
+  .canvas-wrap{position:relative;width:100%;height:280px} canvas{width:100%;height:100%;display:block}
+  .chartnote{font-size:12.5px;color:var(--txt2);margin-top:10px;font-family:var(--mono);line-height:1.5}
+
+  details.adv{margin-top:22px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  details.adv>summary{cursor:pointer;list-style:none;padding:18px 22px;font-family:var(--mono);font-size:13.5px;letter-spacing:0.04em;color:var(--gold);display:flex;align-items:center;gap:10px;font-weight:500}
+  details.adv>summary::-webkit-details-marker{display:none}
+  details.adv>summary::before{content:"▸";color:var(--gold);transition:.15s;font-size:12px} details.adv[open]>summary::before{content:"▾"}
+  details.adv .advbody{padding:4px 22px 22px;border-top:1px solid var(--line)}
+  .advgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px 26px;margin-top:18px}
+  @media(max-width:620px){.advgrid{grid-template-columns:1fr}}
+  .advgrid .full{grid-column:1/-1}
+  .allocpair{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:620px){.allocpair{grid-template-columns:1fr}}
+  .allocbox{background:var(--ink2);border:1px solid var(--line);border-radius:11px;padding:14px}
+  .allocbox .t{font-size:13.5px;font-weight:600;color:var(--txt);margin-bottom:3px}
+  .allocbox .d{font-size:12px;color:var(--txt2);margin-bottom:10px;line-height:1.45}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+  @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--ink2);border:1px solid var(--line);border-radius:11px;padding:13px}
+  .stat .k{font-family:var(--mono);font-size:11px;letter-spacing:0.03em;text-transform:uppercase;color:var(--txt3);margin-bottom:7px}
+  .stat .v{font-family:var(--mono);font-size:17px;color:var(--txt);font-weight:500}
+  .stat .x{font-size:11.5px;color:var(--txt2);margin-top:4px;font-family:var(--mono)}
+
+  .foot{margin-top:24px;color:var(--txt2);font-size:13.5px;line-height:1.7}
+  .foot b{color:var(--txt);font-weight:600}
+  .foot details{margin-top:12px} .foot summary{cursor:pointer;color:var(--gold);font-family:var(--mono);font-size:12.5px;list-style:none}
+  .foot summary::-webkit-details-marker{display:none} .foot summary::before{content:"▸ ";color:var(--gold)} .foot details[open] summary::before{content:"▾ "}
+  .foot .body{margin-top:12px;line-height:1.8;color:var(--txt2)}
+  .disclaimer{margin-top:16px;padding:13px 16px;background:rgba(224,137,130,0.07);border:1px solid rgba(224,137,130,0.2);border-radius:10px;color:var(--txt2);font-size:13px;line-height:1.65}
+  .src{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.8;color:var(--txt2)}
+  .src a{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1>別再替討厭的人打工了</h1>
+      <p>填四個你直覺就答得出來的數字：現在幾歲、手上有多少、每月能投入多少、退休後每年想花多少。用 1871 年以來的真實市場歷史，告訴你大概幾歲能離開、這筆錢撐不撐得住、以及你還差多遠。錢晚一年開始，才是真正的風險。</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="controls">
+      <div class="panel">
+        <div class="seclabel">先回答這四個</div>
+        <div class="field">
+          <label>我現在幾歲</label>
+          <div class="inrow"><input type="number" id="age" value="42" min="18" max="80" step="1"><span class="suffix">歲</span>
+            <select id="cur" style="width:84px"><option value="NT$">NT$</option><option value="US$">US$</option><option value="€">€</option></select></div>
+        </div>
+        <div class="field">
+          <label>現在手上有多少投資本金</label>
+          <div class="sub">還沒開始也沒關係，填 0。</div>
+          <input type="number" id="startCap" value="1000000" step="100000" min="0">
+        </div>
+        <div class="field">
+          <label>每個月能投入多少</label>
+          <div class="sub">定期定額，小額也算數。這是今天的金額；工具假設你每年會隨物價小幅調高投入，若你長年固定不調，實際累積會比這裡少一些。</div>
+          <input type="number" id="monthly" value="35000" step="1000" min="0">
+        </div>
+        <div class="field">
+          <label>退休後每年想花多少</label>
+          <div class="sub">用今天的物價想就好。</div>
+          <input type="number" id="spend" value="960000" step="50000" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="modebar">
+        <div class="seg"><button id="modeHist" class="on">歷史回測</button><button id="modeMc">蒙地卡羅</button></div>
+        <span class="modenote" id="modenote"></span>
+      </div>
+      <div class="zone">
+        <div class="q">① 我什麼時候能退休</div>
+        <div class="herobox">
+          <div class="lead" id="lead">·</div>
+          <div class="herometa">
+            <span class="vtag" id="vtag"><span class="pct" id="srate">·</span><span id="vword"></span></span>
+            <span class="herorange" id="herorange"></span>
+          </div>
+          <div class="heronote" id="heronote"></div>
+        </div>
+      </div>
+
+      <div class="zone">
+        <div class="q">② 我離目標還差多遠</div>
+        <div class="gapcard">
+          <div class="gaphead">
+            <div><div class="label">你的自由數字</div><div class="fi" id="finum">·</div></div>
+            <div style="text-align:right"><div class="label">退休時預估資產（中位數）</div><div class="fi" id="atretire">·</div></div>
+          </div>
+          <div class="bar"><div class="barfill" id="barfill" style="width:0%"></div><div class="bartick" id="bartick" style="left:0%;display:none"></div></div>
+          <div class="barlbls"><span id="barL">今天</span><span id="barR">自由數字</span></div>
+          <div class="gaprange" id="gaprange"></div>
+          <div id="firebox"></div>
+        </div>
+      </div>
+
+      <div class="zone">
+        <div class="q">③ 我要妥協多少</div>
+        <div class="tradeoff" id="tradeoff"></div>
+        <div class="waitline" id="waitline"></div>
+      </div>
+
+      <div class="zone">
+        <div class="q">你的錢一路上會怎麼變</div>
+        <div class="panel chartcard">
+          <div class="chart-head">
+            <h3>從現在到退休，再到終點</h3>
+            <div class="leg">
+              <span><i style="background:var(--acc)"></i>累積，你在存</span>
+              <span><i style="background:var(--gold)"></i>退休，你在花</span>
+              <span><i style="background:var(--bad)"></i>失敗路徑</span>
+            </div>
+          </div>
+          <div class="canvas-wrap"><canvas id="pathChart"></canvas></div>
+          <div class="chartnote" id="pathNote"></div>
+        </div>
+      </div>
+
+      <details class="adv">
+        <summary>進階設定與細節（新手可以完全不用碰）</summary>
+        <div class="advbody">
+          <div class="advgrid">
+            <div class="full">
+              <label class="chk"><input type="checkbox" id="manualAge">我想自己指定退休年齡，而不是讓工具幫我算最早能退的時間</label>
+              <div class="inrow" id="targetAgeRow" style="margin-top:11px;display:none"><span class="suffix">目標退休年齡</span><input type="number" id="targetAge" value="65" min="30" max="90" step="1" style="width:120px"><span class="suffix">歲</span></div>
+            </div>
+
+            <div class="full">
+              <label style="margin-bottom:11px">投資組合配置（退休前後可分開設定）</label>
+              <div class="allocpair">
+                <div class="allocbox">
+                  <div class="t">退休前 · 累積期</div>
+                  <div class="d">時間長，通常較積極。</div>
+                  <div class="inrow"><span style="font-size:13px;color:var(--txt2);width:34px">股</span><input type="range" id="alStocks" min="0" max="100" value="80" step="5"><span class="slval" id="alStocksV"></span></div>
+                  <div class="inrow" style="margin-top:9px"><span style="font-size:13px;color:var(--txt2);width:34px">債</span><input type="range" id="alBonds" min="0" max="100" value="20" step="5"><span class="slval" id="alBondsV"></span></div>
+                  <div class="allocbar" id="allocbar"><i class="alloc-s"></i><i class="alloc-b"></i><i class="alloc-c"></i></div>
+                  <div class="alloclegend"><span><span class="dot alloc-s"></span>股 <b id="lgS"></b></span><span><span class="dot alloc-b"></span>債 <b id="lgB"></b></span><span><span class="dot alloc-c"></span>現金 <b id="lgC"></b></span></div>
+                </div>
+                <div class="allocbox">
+                  <div class="t">退休後 · 提領期</div>
+                  <div class="d">怕序列風險，通常較保守。</div>
+                  <div class="inrow"><span style="font-size:13px;color:var(--txt2);width:34px">股</span><input type="range" id="alStocksPost" min="0" max="100" value="60" step="5"><span class="slval" id="alStocksPostV"></span></div>
+                  <div class="inrow" style="margin-top:9px"><span style="font-size:13px;color:var(--txt2);width:34px">債</span><input type="range" id="alBondsPost" min="0" max="100" value="40" step="5"><span class="slval" id="alBondsPostV"></span></div>
+                  <div class="allocbar" id="allocbarPost"><i class="alloc-s"></i><i class="alloc-b"></i><i class="alloc-c"></i></div>
+                  <div class="alloclegend"><span><span class="dot alloc-s"></span>股 <b id="lgSp"></b></span><span><span class="dot alloc-b"></span>債 <b id="lgBp"></b></span><span><span class="dot alloc-c"></span>現金 <b id="lgCp"></b></span></div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label>目標安全提領率</label>
+              <div class="sub">退休後每年從資產領出的比例。越高代表越早退、但越容易花光（4% 是經典的保守基準）。</div>
+              <div class="inrow"><input type="number" id="safeRate" value="4" step="0.1" min="2" max="8" style="width:110px"><span class="suffix">%</span></div>
+            </div>
+            <div>
+              <label>退休後要花幾年（餘命）<span class="slval" id="lenVal" style="float:right;font-weight:400"></span></label>
+              <input type="range" id="length" min="10" max="60" value="30" step="1" style="margin-top:12px">
+            </div>
+            <div>
+              <label>年度費用率</label>
+              <div class="sub">基金或 ETF 的內扣總開銷。</div>
+              <div class="inrow"><input type="number" id="fee" value="0.1" step="0.05" min="0" max="5" style="width:110px"><span class="suffix">% / 年</span></div>
+            </div>
+            <div>
+              <label>兼職年收入（Barista FIRE 用）</label>
+              <div class="sub">若你打算在完全退休前做兼職，填入預估的年收入，就能看到更早的半退時點。</div>
+              <input type="number" id="barista" value="360000" step="50000" min="0">
+            </div>
+            <div class="full">
+              <label>提領策略</label>
+              <select id="strat" style="margin-top:9px"></select>
+              <div id="stratDesc" style="font-size:13.5px;color:var(--txt2);line-height:1.65;margin:12px 0 4px"></div>
+              <div id="floatNote" style="font-size:12.5px;color:var(--txt3);line-height:1.55"></div>
+              <div id="stratParams" style="margin-top:14px"></div>
+            </div>
+            <div class="full">
+              <label>退休期額外現金流</label>
+              <div class="sub">年金、被動收入、一次性大筆支出等。</div>
+              <div id="flows" style="margin-top:9px"></div>
+              <button class="addbtn" id="addFlow">＋ 新增現金流</button>
+            </div>
+          </div>
+
+          <div class="stats" id="statgrid"></div>
+
+          <div class="chartcard" style="margin-top:20px">
+            <div class="chart-head"><h3>退休後每年實際領多少</h3><div class="leg"><span><i style="background:var(--gold)"></i>中位數</span></div></div>
+            <div class="canvas-wrap" style="height:210px"><canvas id="wdChart"></canvas></div>
+            <div class="chartnote" id="wdNote"></div>
+          </div>
+        </div>
+      </details>
+
+      <div class="foot">
+        <b>怎麼看這張圖</b>　每一條線是一個歷史起點。左半藍色是你在存錢、資產往上爬，右半金色是你退休後在花錢，中間那條直線是退休的那一刻，水平虛線是你的自由數字。哪條線跌到 0，就代表那段歷史在計畫結束前把錢花光了。
+        <details>
+          <summary>它是怎麼算的（方法論與假設）</summary>
+          <div class="body">
+            <b>資料</b>　Robert Shiller 長期資料集（S&amp;P 500 含息總報酬、10 年期公債、CPI、CAPE），1871 至 2022 共 152 個年度真實報酬。<br>
+            <b>真實購買力</b>　全程經通膨調整，所有金額都是今日物價。每月投入與退休支出都視為固定的真實金額。<br>
+            <b>沒有固定報酬率</b>　引擎不是用一個假設的年化報酬去複利，而是把你的錢丟進每一段真實歷史，逐年套用那一年實際發生的股債報酬。你看到的不是一條線，而是 152 條不同命運的路徑，中間那條金線是中位數。<br>
+            <b>何時能退休</b>　自由數字＝退休年支出 ÷ 安全提領率（4% 時就是 25 倍）。工具找出中位數路徑下、資產第一次達到自由數字的年份，就是你的自由年齡，並給樂觀（p90）與保守（p10）區間。<br>
+            <b>提領率與成功率連動</b>　退休後每年提領你設定的年支出，跨所有歷史起點回測會不會在計畫結束前花光。提領率調高，自由數字變小、退得早，但提領占資產比例高、成功率下降。這就是早退與安穩之間的取捨。<br>
+            <b>退休前後分開配置</b>　累積期套用退休前配置、提領期套用退休後配置，在退休那一年切換。可呈現先積極後保守的真實做法。<br>
+            <b>Coast / Barista FIRE</b>　規劃用的啟發式估算，假設一個由配置推估的真實報酬（股 5%、債 1.9%、現金 0%）讓資產光靠複利成長。<br>
+            <b>蒙地卡羅（區塊重抽樣）</b>　切換到此視角時，從真實歷史隨機抽取連續 8 年的區塊接成新路徑，股、債、通膨同年一起抽以保留相關性，生成 800 條模擬人生。保留真實的肥尾與序列風險，但畢竟是模擬，數字依賴抽樣假設，請與歷史回測對照著看。結果使用固定亂數種子，因此同樣輸入每次顯示一致。<br>
+            <b>幣別</b>　報酬引擎為美國市場歷史資料，幣別僅為顯示標籤。
+          </div>
+        </details>
+        <div class="disclaimer">
+          歷史回測呈現的是「過去若重演會如何」，<b>不是預測</b>。Coast 與 Barista FIRE 是讓你提早離開有毒環境的規劃參考，<b>不是叫你明天裸辭</b>。真正該擔心的，往往不是市場波動，而是遲遲不開始。
+        </div>
+        <div class="src">
+          <b style="color:var(--txt);font-family:var(--mono);letter-spacing:0.04em">來源、授權與聲明</b><br>
+          本工具的程式碼、介面與文字皆為原創，受 <a href="https://ficalc.app" target="_blank" rel="noopener">FI Calc</a> 啟發而獨立打造，非官方、與其無隸屬關係。歷史資料源自 Robert Shiller，以 ODC-PDDL 公共領域授權釋出，年度真實報酬由本工具自行計算。提領策略為公開研究方法（Bengen、Guyton-Klinger、Vanguard、Bogleheads/Longinvest 等），著作權不及於數學方法本身。本工具僅供教育與研究，<b style="color:var(--txt)">不構成投資或財務建議</b>，所有回測為情境分析，並非對未來的預測。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const MARKET_DATA = [{"y":1871,"s":0.13908,"b":0.03463,"i":0.01525,"c":0},{"y":1872,"s":0.08742,"b":0.01509,"i":0.02292,"c":0},{"y":1873,"s":0.02027,"b":0.11246,"i":-0.04405,"c":0},{"y":1874,"s":0.12537,"b":0.16397,"i":-0.06952,"c":0},{"y":1875,"s":0.11763,"b":0.15148,"i":-0.05734,"c":0},{"y":1876,"s":-0.14876,"b":0.04741,"i":0.00829,"c":0},{"y":1877,"s":0.16943,"b":0.24756,"i":-0.15631,"c":0},{"y":1878,"s":0.29592,"b":0.17296,"i":-0.10293,"c":0},{"y":1879,"s":0.23838,"b":-0.12388,"i":0.20652,"c":0},{"y":1880,"s":0.34352,"b":0.12872,"i":-0.05706,"c":0},{"y":1881,"s":-0.07182,"b":-0.03482,"i":0.08068,"c":18.5},{"y":1882,"s":0.05585,"b":0.05514,"i":-0.01866,"c":15.7},{"y":1883,"s":0.02298,"b":0.12245,"i":-0.07608,"c":15.3},{"y":1884,"s":-0.02323,"b":0.16356,"i":-0.10293,"c":14.4},{"y":1885,"s":0.3461,"b":0.08467,"i":-0.03502,"c":13.1},{"y":1886,"s":0.1194,"b":0.0223,"i":0.0,"c":16.7},{"y":1887,"s":-0.0514,"b":-0.02261,"i":0.04756,"c":17.5},{"y":1888,"s":0.08203,"b":0.10358,"i":-0.0454,"c":15.4},{"y":1889,"s":0.12411,"b":0.08856,"i":-0.04756,"c":15.8},{"y":1890,"s":-0.08444,"b":-0.00576,"i":0.02497,"c":17.2},{"y":1891,"s":0.26506,"b":0.10425,"i":-0.06026,"c":15.4},{"y":1892,"s":-0.01504,"b":-0.04922,"i":0.07776,"c":19.0},{"y":1893,"s":-0.0635,"b":0.20088,"i":-0.13291,"c":17.7},{"y":1894,"s":0.07969,"b":0.10027,"i":-0.04088,"c":15.7},{"y":1895,"s":0.0354,"b":0.01016,"i":0.0137,"c":16.5},{"y":1896,"s":0.06251,"b":0.08216,"i":-0.02853,"c":16.6},{"y":1897,"s":0.16939,"b":0.00822,"i":0.02937,"c":17.0},{"y":1898,"s":0.27429,"b":0.0373,"i":0.01502,"c":19.2},{"y":1899,"s":-0.11281,"b":-0.12109,"i":0.16864,"c":22.9},{"y":1900,"s":0.23932,"b":0.06089,"i":-0.02405,"c":18.7},{"y":1901,"s":0.16591,"b":0.00018,"i":0.02464,"c":21.0},{"y":1902,"s":-0.01215,"b":-0.06716,"i":0.0962,"c":22.3},{"y":1903,"s":-0.13282,"b":0.07241,"i":-0.04388,"c":20.3},{"y":1904,"s":0.29138,"b":0.00485,"i":0.02295,"c":15.9},{"y":1905,"s":0.21305,"b":0.03862,"i":0.0,"c":18.5},{"y":1906,"s":-0.03625,"b":-0.02745,"i":0.04486,"c":20.1},{"y":1907,"s":-0.2252,"b":0.04416,"i":-0.02147,"c":17.2},{"y":1908,"s":0.35057,"b":0.01418,"i":0.03233,"c":11.9},{"y":1909,"s":0.04921,"b":-0.07313,"i":0.10738,"c":14.8},{"y":1910,"s":0.03634,"b":0.10894,"i":-0.06768,"c":14.6},{"y":1911,"s":0.04655,"b":0.04893,"i":-0.01083,"c":14.1},{"y":1912,"s":-0.00148,"b":-0.06087,"i":0.07338,"c":13.8},{"y":1913,"s":-0.06643,"b":0.04459,"i":0.02041,"c":13.2},{"y":1914,"s":-0.06406,"b":0.02546,"i":0.01,"c":11.6},{"y":1915,"s":0.27434,"b":0.02602,"i":0.0297,"c":10.4},{"y":1916,"s":-0.03792,"b":-0.08688,"i":0.125,"c":12.5},{"y":1917,"s":-0.31921,"b":-0.14952,"i":0.19658,"c":11.0},{"y":1918,"s":0.00176,"b":-0.10842,"i":0.17857,"c":6.6},{"y":1919,"s":0.02273,"b":-0.1352,"i":0.1697,"c":6.1},{"y":1920,"s":-0.12619,"b":0.05764,"i":-0.01554,"c":6.0},{"y":1921,"s":0.23761,"b":0.24663,"i":-0.11053,"c":5.1},{"y":1922,"s":0.29897,"b":0.04479,"i":-0.00592,"c":6.3},{"y":1923,"s":0.02409,"b":0.03504,"i":0.02976,"c":8.2},{"y":1924,"s":0.27116,"b":0.05557,"i":0.0,"c":8.1},{"y":1925,"s":0.21654,"b":0.01691,"i":0.03468,"c":9.7},{"y":1926,"s":0.14115,"b":0.08715,"i":-0.02235,"c":11.3},{"y":1927,"s":0.38745,"b":0.04612,"i":-0.01143,"c":13.2},{"y":1928,"s":0.49348,"b":0.0247,"i":-0.01156,"c":18.8},{"y":1929,"s":-0.09427,"b":0.05981,"i":0.0,"c":27.1},{"y":1930,"s":-0.16895,"b":0.10673,"i":-0.07018,"c":22.3},{"y":1931,"s":-0.38028,"b":0.1205,"i":-0.10063,"c":16.7},{"y":1932,"s":0.0402,"b":0.1808,"i":-0.0979,"c":9.3},{"y":1933,"s":0.53104,"b":0.024,"i":0.02326,"c":8.7},{"y":1934,"s":-0.10711,"b":0.02606,"i":0.0303,"c":13.0},{"y":1935,"s":0.52711,"b":0.02392,"i":0.01471,"c":11.5},{"y":1936,"s":0.29893,"b":0.00234,"i":0.02174,"c":17.1},{"y":1937,"s":-0.32561,"b":0.02904,"i":0.00709,"c":21.6},{"y":1938,"s":0.18949,"b":0.05653,"i":-0.01408,"c":13.5},{"y":1939,"s":0.03798,"b":0.04317,"i":-0.00714,"c":15.6},{"y":1940,"s":-0.10171,"b":0.02857,"i":0.01439,"c":16.4},{"y":1941,"s":-0.18337,"b":-0.12098,"i":0.11348,"c":13.9},{"y":1942,"s":0.12971,"b":-0.04889,"i":0.07643,"c":10.1},{"y":1943,"s":0.20069,"b":-0.00552,"i":0.02959,"c":10.2},{"y":1944,"s":0.17002,"b":0.01039,"i":0.02299,"c":11.1},{"y":1945,"s":0.363,"b":0.01544,"i":0.02247,"c":12.0},{"y":1946,"s":-0.25535,"b":-0.13905,"i":0.18132,"c":15.6},{"y":1947,"s":-0.06893,"b":-0.08619,"i":0.10233,"c":11.5},{"y":1948,"s":0.08199,"b":0.02192,"i":0.01266,"c":10.4},{"y":1949,"s":0.20112,"b":0.04405,"i":-0.02083,"c":10.2},{"y":1950,"s":0.24514,"b":-0.07171,"i":0.08085,"c":10.8},{"y":1951,"s":0.16826,"b":-0.02521,"i":0.04331,"c":11.9},{"y":1952,"s":0.14258,"b":0.01121,"i":0.00377,"c":12.5},{"y":1953,"s":0.01877,"b":0.04444,"i":0.01128,"c":13.0},{"y":1954,"s":0.47925,"b":0.02209,"i":-0.00743,"c":12.0},{"y":1955,"s":0.28459,"b":-0.00033,"i":0.00375,"c":16.0},{"y":1956,"s":0.03779,"b":-0.04227,"i":0.02985,"c":18.3},{"y":1957,"s":-0.09095,"b":0.02611,"i":0.03623,"c":16.7},{"y":1958,"s":0.3844,"b":-0.05145,"i":0.01399,"c":13.8},{"y":1959,"s":0.06545,"b":-0.02032,"i":0.01034,"c":18.0},{"y":1960,"s":0.04758,"b":0.09443,"i":0.01706,"c":18.3},{"y":1961,"s":0.18303,"b":0.01382,"i":0.00671,"c":18.5},{"y":1962,"s":-0.03862,"b":0.04559,"i":0.01333,"c":21.2},{"y":1963,"s":0.19271,"b":-0.00318,"i":0.01645,"c":19.3},{"y":1964,"s":0.14886,"b":0.03022,"i":0.00971,"c":21.6},{"y":1965,"s":0.09517,"b":-0.00756,"i":0.01923,"c":23.3},{"y":1966,"s":-0.09532,"b":0.01322,"i":0.03459,"c":24.1},{"y":1967,"s":0.12036,"b":-0.05464,"i":0.03647,"c":20.4},{"y":1968,"s":0.05968,"b":-0.02233,"i":0.04399,"c":21.5},{"y":1969,"s":-0.13869,"b":-0.10518,"i":0.0618,"c":21.2},{"y":1970,"s":0.02136,"b":0.12283,"i":0.05291,"c":17.1},{"y":1971,"s":0.10389,"b":0.04794,"i":0.03266,"c":16.5},{"y":1972,"s":0.13721,"b":-0.01061,"i":0.0365,"c":17.3},{"y":1973,"s":-0.23459,"b":-0.05836,"i":0.0939,"c":18.7},{"y":1974,"s":-0.29391,"b":-0.07214,"i":0.11803,"c":13.5},{"y":1975,"s":0.30437,"b":-0.00687,"i":0.06718,"c":8.9},{"y":1976,"s":0.05732,"b":0.05652,"i":0.05216,"c":11.2},{"y":1977,"s":-0.14817,"b":-0.04044,"i":0.06838,"c":11.4},{"y":1978,"s":0.06401,"b":-0.07437,"i":0.0928,"c":9.2},{"y":1979,"s":0.02863,"b":-0.1255,"i":0.13909,"c":9.3},{"y":1980,"s":0.12734,"b":-0.09171,"i":0.11825,"c":8.8},{"y":1981,"s":-0.14377,"b":-0.05168,"i":0.08391,"c":9.3},{"y":1982,"s":0.25477,"b":0.33009,"i":0.03712,"c":7.4},{"y":1983,"s":0.15543,"b":-0.00251,"i":0.04192,"c":8.8},{"y":1984,"s":0.04258,"b":0.09388,"i":0.03533,"c":9.9},{"y":1985,"s":0.21678,"b":0.19755,"i":0.03886,"c":10.0},{"y":1986,"s":0.29522,"b":0.21122,"i":0.0146,"c":11.7},{"y":1987,"s":-0.06174,"b":-0.06371,"i":0.04047,"c":14.9},{"y":1988,"s":0.127,"b":0.01427,"i":0.04667,"c":13.9},{"y":1989,"s":0.16928,"b":0.08876,"i":0.05202,"c":15.1},{"y":1990,"s":-0.06133,"b":0.03129,"i":0.05651,"c":17.1},{"y":1991,"s":0.28612,"b":0.12073,"i":0.026,"c":15.6},{"y":1992,"s":0.04343,"b":0.06412,"i":0.03259,"c":19.8},{"y":1993,"s":0.08959,"b":0.09676,"i":0.02525,"c":20.3},{"y":1994,"s":-0.01597,"b":-0.09584,"i":0.02804,"c":21.4},{"y":1995,"s":0.31736,"b":0.19238,"i":0.02728,"c":20.2},{"y":1996,"s":0.23617,"b":-0.03458,"i":0.03044,"c":24.8},{"y":1997,"s":0.25938,"b":0.12037,"i":0.01571,"c":28.3},{"y":1998,"s":0.29354,"b":0.0961,"i":0.01671,"c":32.9},{"y":1999,"s":0.12498,"b":-0.10554,"i":0.02739,"c":40.6},{"y":2000,"s":-0.08624,"b":0.13028,"i":0.03732,"c":43.8},{"y":2001,"s":-0.14451,"b":0.04814,"i":0.01142,"c":37.0},{"y":2002,"s":-0.22148,"b":0.09539,"i":0.02597,"c":30.3},{"y":2003,"s":0.26154,"b":0.01359,"i":0.01926,"c":22.9},{"y":2004,"s":0.03001,"b":0.00646,"i":0.0297,"c":27.7},{"y":2005,"s":0.0592,"b":-0.01177,"i":0.03985,"c":26.6},{"y":2006,"s":0.11087,"b":-0.00098,"i":0.02078,"c":26.5},{"y":2007,"s":-0.05468,"b":0.07822,"i":0.04278,"c":27.2},{"y":2008,"s":-0.35649,"b":0.13423,"i":0.00028,"c":24.0},{"y":2009,"s":0.29844,"b":-0.08981,"i":0.02629,"c":15.2},{"y":2010,"s":0.14522,"b":0.04625,"i":0.01629,"c":20.5},{"y":2011,"s":0.0047,"b":0.1173,"i":0.02924,"c":23.0},{"y":2012,"s":0.14399,"b":0.00851,"i":0.01597,"c":21.2},{"y":2013,"s":0.23654,"b":-0.07005,"i":0.01581,"c":21.9},{"y":2014,"s":0.13581,"b":0.11005,"i":-0.0009,"c":24.9},{"y":2015,"s":-0.0475,"b":-0.01184,"i":0.01373,"c":26.5},{"y":2016,"s":0.1816,"b":-0.03052,"i":0.02499,"c":24.2},{"y":2017,"s":0.22458,"b":-0.00816,"i":0.02071,"c":28.1},{"y":2018,"s":-0.06201,"b":5e-05,"i":0.01549,"c":33.3},{"y":2019,"s":0.2504,"b":0.07871,"i":0.02487,"c":28.4},{"y":2020,"s":0.16238,"b":0.06078,"i":0.01399,"c":31.0},{"y":2021,"s":0.13707,"b":-0.1118,"i":0.07481,"c":34.5},{"y":2022,"s":-0.17309,"b":-0.17006,"i":0.06409,"c":36.9}];
+const byYear={}; MARKET_DATA.forEach(d=>byYear[d.y]=d);
+const YEARS=MARKET_DATA.map(d=>d.y);
+const MAXY=YEARS[YEARS.length-1];
+const SCAN_CAP=60;
+const $=id=>document.getElementById(id);
+let lastResult=null,flowSeq=0;const flowState=[];
+
+function pmtRate(n,g){return n<=0?1:(g===0?1/n:(g/(1-Math.pow(1+g,-n)))/(1+g));}
+function pctile(a,p){if(!a.length)return 0;const i=(a.length-1)*p,lo=Math.floor(i),hi=Math.ceil(i);return lo===hi?a[lo]:a[lo]+(a[hi]-a[lo])*(i-lo);}
+function fmtCompact(v,cur){const neg=v<0;v=Math.abs(v);let s;
+  if(cur==='NT$'){if(v>=1e8)s=(v/1e8).toFixed(v>=1e9?0:2)+'億';else if(v>=1e4)s=Math.round(v/1e4).toLocaleString('en-US')+'萬';else s=Math.round(v).toString();s=cur+s;}
+  else{if(v>=1e9)s=cur+(v/1e9).toFixed(1)+'B';else if(v>=1e6)s=cur+(v/1e6).toFixed(1)+'M';else if(v>=1e3)s=cur+(v/1e3).toFixed(0)+'k';else s=cur+Math.round(v);}
+  return neg?'−'+s:s;}
+
+/* ---------- strategies ---------- */
+const STRATS={
+  constdollar:{name:'定額提領（4% 法則）',
+    desc:'每年提領固定的真實金額，等於你設定的退休年支出，並隨通膨維持購買力，完全不看市場。最可預測，但市場重挫時不減少提領，破產風險集中在退休前幾年就遇空頭（序列風險）。',
+    params:[],note:'提領金額＝你設定的「退休後每年想花多少」。',
+    fn:(p,st)=>st.spending},
+  pct:{name:'固定百分比',
+    desc:'每年領當下資產的固定比例，永遠不會歸零，但市場大跌時收入跟著大砍。可加地板或天花板框住波動。',
+    params:[{k:'rate',label:'提領比例',unit:'%',def:4,step:0.1,min:0.5,max:15,hint:'調高代表平均領更多，但市場差時的收入低點也更難看。'},
+      {k:'floor',label:'地板（佔首年提領，0 為關閉）',unit:'%',def:0,step:5,min:0,max:200,hint:'收入下限。設了地板會重新引入破產可能。'},
+      {k:'ceil',label:'天花板（佔首年提領，0 為關閉）',unit:'%',def:0,step:5,min:0,max:400,hint:'收入上限。'}],
+    fn:(p,st)=>{let w=st.bal*p.rate;const base=st.initBal*p.rate;if(p.floor>0)w=Math.max(w,base*p.floor);if(p.ceil>0)w=Math.min(w,base*p.ceil);return w;}},
+  vpw:{name:'VPW 可變提領率',
+    desc:'把資產當成一份會花光的年金，依剩餘年數與預期報酬決定當年比例，年紀越大領越多、最後一年領完。不會提前破產。預期報酬依退休後配置自動推估。',
+    params:[],note:'無參數，預期真實報酬依退休後配置自動推估。',
+    fn:(p,st)=>{const g=st.ws*0.05+st.wb*0.019;return st.bal*pmtRate(st.length-st.k,g);}},
+  gk:{name:'Guyton-Klinger 護欄法',
+    desc:'平時維持去年的真實提領，但設兩道護欄：提領率衝太高時砍、掉太低時加。穩定與彈性兼顧（簡化版）。',
+    params:[{k:'rate',label:'初始提領率',unit:'%',def:5,step:0.1,min:1,max:12,hint:'起始提領率，也是兩道護欄的中心。'},
+      {k:'band',label:'護欄帶寬',unit:'%',def:20,step:5,min:5,max:50,hint:'調寬代表較少觸發、收入更穩。'},
+      {k:'adj',label:'觸發調整幅度',unit:'%',def:10,step:5,min:5,max:30,hint:'每次觸發砍掉或加上的幅度。'}],
+    fn:(p,st)=>{if(st.prevW==null)return st.initBal*p.rate;let w=st.prevW;const wr=w/st.bal;if(wr>p.rate*(1+p.band))w*=(1-p.adj);else if(wr<p.rate*(1-p.band))w*=(1+p.adj);return w;}},
+  vanguard:{name:'Vanguard 動態支出',
+    desc:'每年以「資產 × 目標比例」為目標，但限制本年提領最多比去年多 X%、最少少 Y%。跟著市場走，但變動平滑。',
+    params:[{k:'rate',label:'目標提領比例',unit:'%',def:4.5,step:0.1,min:1,max:12,hint:'理想提領＝此比例 × 當前資產。'},
+      {k:'ceiling',label:'天花板（相對去年最大漲幅）',unit:'%',def:5,step:0.5,min:0,max:20,hint:'市場好時收入的上調速度。'},
+      {k:'floor',label:'地板（相對去年最大跌幅）',unit:'%',def:2.5,step:0.5,min:0,max:20,hint:'越接近 0，收入越不易被砍。'}],
+    fn:(p,st)=>{const target=st.bal*p.rate;if(st.prevW==null)return target;return Math.min(Math.max(target,st.prevW*(1-p.floor)),st.prevW*(1+p.ceiling));}},
+  sensible:{name:'Sensible（基底加分潤）',
+    desc:'每年保證領一個固定基底，若去年組合有實質獲利，再額外領獲利的一部分當享受金。市場差時只領基底。',
+    params:[{k:'base',label:'基底提領率',unit:'%',def:3,step:0.1,min:0.5,max:8,hint:'每年保底，建議低於一般提領率。'},
+      {k:'extras',label:'享受金比例（去年獲利分潤）',unit:'%',def:50,step:5,min:0,max:100,hint:'去年獲利中額外提領的比例。'}],
+    fn:(p,st)=>{const base=st.initBal*p.base;const extra=(st.prevGain!=null&&st.prevGain>0)?p.extras*st.prevGain:0;return base+extra;}},
+  cape:{name:'CAPE 動態提領',
+    desc:'用市場估值（席勒本益比 CAPE）調整提領：貴的時候少領、便宜的時候多領。需 CAPE 資料，僅回測 1881 年後的起點。',
+    params:[{k:'a',label:'常數項 a',unit:'%',def:1,step:0.1,min:0,max:4,hint:'估值再高，每年至少領這個比例。'},
+      {k:'b',label:'係數 b（估值敏感度）',unit:'',def:0.5,step:0.05,min:0,max:1.5,raw:true,hint:'調高代表提領隨 CAPE 變動更劇烈。'}],
+    fn:(p,st)=>{if(!st.md.c||st.md.c<=0)return null;return st.bal*(p.a+p.b/st.md.c);}}
+};
+const GROUPS=[['基本',['constdollar','pct']],['最大化支出',['vpw']],['最大化持久度',['gk','vanguard','sensible','cape']]];
+
+/* ---------- engine ---------- */
+function cumInflFactor(sy,k){let f=1;for(let j=0;j<k;j++){const md=byYear[sy+j];if(!md)return f;f*=(1+md.i);}return f;}
+function runPath(sy,cfg){
+  let bal=cfg.startCap;const accBals=[bal];
+  for(let k=0;k<cfg.accumYears;k++){const md=byYear[sy+k];if(!md)return null;
+    bal+=cfg.annualContrib;const r=cfg.ws*md.s+cfg.wb*md.b;bal*=(1+r-cfg.fee);if(bal<0)bal=0;accBals.push(bal);}
+  const atRetire=bal,rStart=sy+cfg.accumYears;
+  const wbals=[bal],wd=[];let prevW=null,prevGain=null,failed=false,failYear=null;
+  for(let k=0;k<cfg.length;k++){
+    const md=byYear[rStart+k];if(!md)return null;
+    const st={bal,k,length:cfg.length,initBal:atRetire,prevW,prevGain,md,ws:cfg.wsPost,wb:cfg.wbPost,wc:cfg.wcPost,spending:cfg.spending};
+    let W=cfg.fn(cfg.sp,st);if(W===null)return null;if(!isFinite(W)||W<0)W=0;
+    let net=0;for(const fl of cfg.flows){if(k+1>=fl.start&&k+1<=fl.end){let amt=fl.amount;if(!fl.inflationAdj)amt/=cumInflFactor(rStart,k);net+=fl.type==='income'?amt:-amt;}}
+    const outflow=W-net;
+    if(outflow>bal+1e-6){failed=true;failYear=k+1;wd.push(Math.max(0,bal+net));wbals.push(0);for(let j=k+1;j<cfg.length;j++){wbals.push(0);wd.push(0);}break;}
+    bal-=outflow;wd.push(W);prevW=W;
+    const before=bal,r=cfg.wsPost*md.s+cfg.wbPost*md.b;bal*=(1+r-cfg.fee);if(bal<0)bal=0;prevGain=bal-before;wbals.push(bal);}
+  return {sy,atRetire,accBals,wbals,wd,full:accBals.concat(wbals.slice(1)),end:bal,success:!failed,failYear};
+}
+function runIntegrated(cfg){
+  const paths=[];
+  for(const sy of YEARS){if(sy+cfg.accumYears+cfg.length-1>MAXY)break;const p=runPath(sy,cfg);if(p)paths.push(p);}
+  const n=paths.length,ok=paths.filter(p=>p.success).length,sr=n?ok/n*100:0;
+  const atR=paths.map(p=>p.atRetire).sort((a,b)=>a-b);
+  const ends=paths.map(p=>p.end).sort((a,b)=>a-b);
+  const wd=[];paths.forEach(p=>p.wd.forEach((w,i)=>{if(i<(p.failYear??cfg.length))wd.push(w);}));wd.sort((a,b)=>a-b);
+  const fails=paths.filter(p=>!p.success);
+  return {paths,n,ok,sr,atR,ends,wd,fails:fails.length,minFail:fails.length?Math.min(...fails.map(p=>p.failYear)):null};
+}
+function accumSeries(cfg,contribStartYear){
+  const cols=Array.from({length:SCAN_CAP+1},()=>[]);
+  for(const sy of YEARS){let bal=cfg.startCap;cols[0].push(bal);
+    for(let k=0;k<SCAN_CAP;k++){const md=byYear[sy+k];if(!md)break;
+      if(k>=contribStartYear)bal+=cfg.annualContrib;
+      const r=cfg.ws*md.s+cfg.wb*md.b;bal*=(1+r-cfg.fee);if(bal<0)bal=0;cols[k+1].push(bal);}}
+  const med=[],p10=[],p90=[];
+  for(let A=0;A<=SCAN_CAP;A++){const c=cols[A].slice().sort((a,b)=>a-b);med.push(pctile(c,0.5));p10.push(pctile(c,0.1));p90.push(pctile(c,0.9));}
+  return {med,p10,p90};
+}
+function yearsTo(series,target){for(let A=0;A<=SCAN_CAP;A++){if(series[A]>=target)return A;}return null;}
+function freedomN(cfg){const acc=accumSeries(cfg,0);const FI=cfg.spending/cfg.safeRate;return yearsTo(acc.med,FI);}
+
+/* ---------- Monte Carlo (block bootstrap) ---------- */
+let MODE='hist';
+const MC_K=800, MC_KA=400, MC_B=8;
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function mcSequence(pool,total,B,rng){const seq=[],L=pool.length;while(seq.length<total){const start=Math.floor(rng()*L);for(let j=0;j<B&&seq.length<total;j++)seq.push(pool[(start+j)%L]);}return seq;}
+function runPathFromSeq(seq,cfg){
+  let bal=cfg.startCap;const accBals=[bal];
+  for(let k=0;k<cfg.accumYears;k++){const md=seq[k];bal+=cfg.annualContrib;const r=cfg.ws*md.s+cfg.wb*md.b;bal*=(1+r-cfg.fee);if(bal<0)bal=0;accBals.push(bal);}
+  const atRetire=bal;const wbals=[bal],wd=[];let prevW=null,prevGain=null,failed=false,failYear=null;
+  for(let k=0;k<cfg.length;k++){
+    const md=seq[cfg.accumYears+k];
+    const st={bal,k,length:cfg.length,initBal:atRetire,prevW,prevGain,md,ws:cfg.wsPost,wb:cfg.wbPost,wc:cfg.wcPost,spending:cfg.spending};
+    let W=cfg.fn(cfg.sp,st);if(W===null)W=0;if(!isFinite(W)||W<0)W=0;
+    let net=0;for(const fl of cfg.flows){if(k+1>=fl.start&&k+1<=fl.end){let amt=fl.amount;if(!fl.inflationAdj){let f=1;for(let j=0;j<k;j++)f*=(1+seq[cfg.accumYears+j].i);amt/=f;}net+=fl.type==='income'?amt:-amt;}}
+    const outflow=W-net;
+    if(outflow>bal+1e-6){failed=true;failYear=k+1;wd.push(Math.max(0,bal+net));wbals.push(0);for(let j=k+1;j<cfg.length;j++){wbals.push(0);wd.push(0);}break;}
+    bal-=outflow;wd.push(W);prevW=W;
+    const before=bal,r=cfg.wsPost*md.s+cfg.wbPost*md.b;bal*=(1+r-cfg.fee);if(bal<0)bal=0;prevGain=bal-before;wbals.push(bal);}
+  return {atRetire,accBals,wbals,wd,full:accBals.concat(wbals.slice(1)),end:bal,success:!failed,failYear};
+}
+function runMonteCarlo(cfg){
+  const total=cfg.accumYears+cfg.length;
+  const pool=(cfg.strat==='cape')?MARKET_DATA.filter(d=>d.c>0):MARKET_DATA;
+  const rng=mulberry32(0x9E3779B9);const paths=[];
+  for(let i=0;i<MC_K;i++){paths.push(runPathFromSeq(mcSequence(pool,total,MC_B,rng),cfg));}
+  const n=paths.length,ok=paths.filter(p=>p.success).length,sr=n?ok/n*100:0;
+  const atR=paths.map(p=>p.atRetire).sort((a,b)=>a-b);
+  const ends=paths.map(p=>p.end).sort((a,b)=>a-b);
+  const wd=[];paths.forEach(p=>p.wd.forEach((w,i)=>{if(i<(p.failYear??cfg.length))wd.push(w);}));wd.sort((a,b)=>a-b);
+  const fails=paths.filter(p=>!p.success);
+  return {paths,n,ok,sr,atR,ends,wd,fails:fails.length,minFail:fails.length?Math.min(...fails.map(p=>p.failYear)):null};
+}
+function mcAccumSeries(cfg,contribStartYear){
+  const pool=MARKET_DATA;const rng=mulberry32((0x85EBCA77 ^ (contribStartYear*2654435761))>>>0);
+  const cols=Array.from({length:SCAN_CAP+1},()=>[]);
+  for(let i=0;i<MC_KA;i++){let bal=cfg.startCap;cols[0].push(bal);const seq=mcSequence(pool,SCAN_CAP,MC_B,rng);
+    for(let k=0;k<SCAN_CAP;k++){if(k>=contribStartYear)bal+=cfg.annualContrib;const r=cfg.ws*seq[k].s+cfg.wb*seq[k].b;bal*=(1+r-cfg.fee);if(bal<0)bal=0;cols[k+1].push(bal);}}
+  const med=[],p10=[],p90=[];
+  for(let A=0;A<=SCAN_CAP;A++){const c=cols[A].slice().sort((a,b)=>a-b);med.push(pctile(c,0.5));p10.push(pctile(c,0.1));p90.push(pctile(c,0.9));}
+  return {med,p10,p90};
+}
+function accumSeriesMode(cfg,c){return MODE==='mc'?mcAccumSeries(cfg,c):accumSeries(cfg,c);}
+function runMode(cfg){return MODE==='mc'?runMonteCarlo(cfg):runIntegrated(cfg);}
+function freedomNMode(cfg){const acc=accumSeriesMode(cfg,0);return yearsTo(acc.med,cfg.spending/cfg.safeRate);}
+
+/* ---------- UI plumbing ---------- */
+function buildStratSelect(){const sel=$('strat');sel.innerHTML='';
+  GROUPS.forEach(([g,keys])=>{const og=document.createElement('optgroup');og.label=g;keys.forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=STRATS[k].name;og.appendChild(o);});sel.appendChild(og);});}
+function renderStratParams(){const s=$('strat').value,def=STRATS[s];
+  $('stratDesc').textContent=def.desc;
+  $('floatNote').textContent=(s==='constdollar')?'':'※ 此策略實際支出隨資產浮動，退休年支出仍用於計算自由數字與退休點。';
+  const box=$('stratParams');box.innerHTML='';
+  if(!def.params||!def.params.length){if(def.note){const n=document.createElement('div');n.className='pnote';n.textContent=def.note;box.appendChild(n);}return;}
+  def.params.forEach(pr=>{const f=document.createElement('div');f.className='field';
+    f.innerHTML=`<label>${pr.label}</label><div class="inrow"><input type="number" data-pk="${pr.k}" value="${pr.def}" step="${pr.step}" min="${pr.min}" max="${pr.max}" style="width:140px"><span class="suffix">${pr.unit}</span></div><div class="phint">${pr.hint||''}</div>`;
+    box.appendChild(f);});
+  box.querySelectorAll('input').forEach(i=>i.addEventListener('input',schedule));}
+function readStratParams(){const s=$('strat').value,def=STRATS[s],out={};
+  $('stratParams').querySelectorAll('input[data-pk]').forEach(i=>{const pr=def.params.find(x=>x.k===i.dataset.pk);let v=parseFloat(i.value);if(isNaN(v))v=pr.def;out[i.dataset.pk]=pr.raw?v:v/100;});
+  return {strat:s,sp:out,fn:def.fn};}
+function addFlow(data){const id=++flowSeq;const d=data||{name:'',type:'income',amount:0,start:1,end:parseInt($('length').value),infl:true};flowState.push({id,...d});
+  const el=document.createElement('div');el.className='flow';el.dataset.id=id;
+  el.innerHTML=`<button class="rm" title="移除">×</button><div class="flowgrid">
+    <div class="full"><label>名稱</label><input type="text" data-fk="name" value="${d.name}" placeholder="例：勞保年金 / 房租"></div>
+    <div><label>類型</label><select data-fk="type"><option value="income"${d.type==='income'?' selected':''}>收入（＋）</option><option value="expense"${d.type==='expense'?' selected':''}>支出（−）</option></select></div>
+    <div><label>金額 / 年</label><input type="number" data-fk="amount" value="${d.amount}" step="10000" min="0"></div>
+    <div><label>起始退休年</label><input type="number" data-fk="start" value="${d.start}" min="1" step="1"></div>
+    <div><label>結束退休年</label><input type="number" data-fk="end" value="${d.end}" min="1" step="1"></div>
+    <div class="full"><label class="chk2"><input type="checkbox" data-fk="infl"${d.infl?' checked':''}>隨通膨調整</label></div></div>`;
+  el.querySelector('.rm').addEventListener('click',()=>{const i=flowState.findIndex(f=>f.id===id);if(i>=0)flowState.splice(i,1);el.remove();schedule();});
+  el.querySelectorAll('[data-fk]').forEach(inp=>inp.addEventListener('input',()=>{const f=flowState.find(x=>x.id===id),k=inp.dataset.fk;f[k]=(inp.type==='checkbox')?inp.checked:(inp.type==='number'?parseFloat(inp.value)||0:inp.value);schedule();}));
+  $('flows').appendChild(el);}
+
+function allocOf(sId,bId){let ws=parseInt($(sId).value)/100,wb=parseInt($(bId).value)/100;if(ws+wb>1)wb=1-ws;const wc=Math.max(0,1-ws-wb);return {ws,wb,wc};}
+function readConfig(){
+  const sp=readStratParams();
+  const pre=allocOf('alStocks','alBonds'),post=allocOf('alStocksPost','alBondsPost');
+  const flows=flowState.map(f=>({type:f.type,amount:Math.max(0,f.amount||0),start:Math.max(1,Math.round(f.start||1)),end:Math.max(1,Math.round(f.end||1)),inflationAdj:!!f.infl}));
+  return {age:parseInt($('age').value)||0,startCap:Math.max(0,parseFloat($('startCap').value)||0),
+    annualContrib:Math.max(0,(parseFloat($('monthly').value)||0)*12),
+    spending:Math.max(0,parseFloat($('spend').value)||0),safeRate:Math.max(0.01,(parseFloat($('safeRate').value)||4)/100),
+    length:parseInt($('length').value),barista:Math.max(0,parseFloat($('barista').value)||0),
+    manualAge:$('manualAge').checked,targetAge:parseInt($('targetAge').value)||65,
+    ws:pre.ws,wb:pre.wb,wc:pre.wc,wsPost:post.ws,wbPost:post.wb,wcPost:post.wc,
+    fee:(parseFloat($('fee').value)||0)/100,flows,strat:sp.strat,sp:sp.sp,fn:sp.fn,cur:$('cur').value};
+}
+
+/* ---------- render ---------- */
+function render(){
+  const cfg=readConfig(),cur=cfg.cur;
+  const acc=accumSeriesMode(cfg,0);const FI=cfg.spending/cfg.safeRate;
+  const solvedN=yearsTo(acc.med,FI);
+  let N,reachable;
+  if(cfg.manualAge){N=Math.max(0,cfg.targetAge-cfg.age);reachable=acc.med[Math.min(N,SCAN_CAP)]>=FI;}
+  else{reachable=solvedN!=null;N=reachable?solvedN:SCAN_CAP;}
+  cfg.accumYears=N;
+  const R=runMode(cfg);
+  lastResult={R,cfg,FI,N,age:cfg.age,reachable,solvedN};
+
+  // Zone 1
+  const lead=$('lead');
+  if(cfg.spending<=0){lead.innerHTML='先填入「退休後每年想花多少」。';$('herorange').textContent='';$('heronote').textContent='';$('srate').textContent='·';$('vword').textContent='';$('vtag').style.background='transparent';$('vtag').style.border='1px solid var(--line2)';$('vtag').style.color='var(--txt2)';}
+  else if(!cfg.manualAge&&!reachable){
+    lead.innerHTML='以目前的投入，<b>60 年內</b>還達不到你的自由數字。';
+    $('herorange').textContent='';$('heronote').textContent='別停在這裡。往下看「我要妥協多少」，少花一點、或每月多投一些，數字就會動起來。';
+    $('srate').textContent='·';$('vword').textContent='達標前無成功率';$('vtag').style.background='transparent';$('vtag').style.color='var(--txt2)';$('vtag').style.border='1px solid var(--line2)';
+  } else {
+    const fage=cfg.age+N;
+    if(N<=0)lead.innerHTML='你<b>現在</b>就達到自由數字了。';
+    else lead.innerHTML=`照這個計畫，你大約在 <b>${fage} 歲</b> <span class="yrs">（還有 ${N} 年）</span>退休。`;
+    const yOpt=yearsTo(acc.p90,FI),yCon=yearsTo(acc.p10,FI);
+    let rng=[];if(yOpt!=null)rng.push('順的話 '+(cfg.age+yOpt)+' 歲');if(yCon!=null)rng.push('保守 '+(cfg.age+yCon)+' 歲');else rng.push('保守情境 60 年內未達');
+    $('herorange').textContent=rng.join('　·　');
+    const sr=R.sr;let col,word,note;
+    if(sr>=95){col='var(--ok)';word='很穩';note='退休後照這樣花，歷史上幾乎都撐得到最後。';}
+    else if(sr>=85){col='var(--gold-bright)';word='可接受';note='多數情況成功，少數起點會吃緊，保留一點彈性會更安心。';}
+    else if(sr>=70){col='var(--gold)';word='偏脆弱';note='不少情況會花光，對退休時點很敏感，考慮晚一點退或少花一點。';}
+    else{col='var(--bad)';word='高風險';note='太多情況撐不到最後，多半是提領率太高或花費偏高。';}
+    $('srate').textContent=sr.toFixed(0)+'%';$('vword').textContent=word;$('vtag').style.color=col;$('vtag').style.border='1px solid '+col;
+    $('vtag').style.background=(sr>=95)?'rgba(127,191,154,0.14)':(sr>=85)?'rgba(242,204,123,0.14)':(sr>=70)?'rgba(224,178,90,0.14)':'rgba(224,137,130,0.14)';
+    $('heronote').textContent='成功率，就是退休後每年花你設定的金額，在 '+R.n+' 段歷史裡撐到最後的比例。'+note;
+  }
+
+  // Zone 2
+  $('finum').innerHTML=fmtCompact(FI,cur)+' <small>＝年支出的 '+Math.round(1/cfg.safeRate)+' 倍</small>';
+  const atRmed=pctile(R.atR,0.5),atRlo=pctile(R.atR,0.1),atRhi=pctile(R.atR,0.9);
+  $('atretire').textContent=R.n?fmtCompact(atRmed,cur):'·';
+  const pctToday=FI>0?Math.min(100,cfg.startCap/FI*100):0;
+  const pctMed=FI>0?Math.min(140,atRmed/FI*100):0;
+  const bf=$('barfill');bf.style.width=Math.min(100,pctMed)+'%';bf.className='barfill'+(atRmed>=FI?' over':'');
+  const tk=$('bartick');if(R.n&&FI>0){tk.style.display='block';tk.style.left=Math.min(100,atRlo/FI*100)+'%';}else tk.style.display='none';
+  $('barL').textContent='今天 '+fmtCompact(cfg.startCap,cur)+'（'+pctToday.toFixed(0)+'%）';
+  $('barR').textContent='自由數字 '+fmtCompact(FI,cur);
+  if(R.n){$('gaprange').innerHTML=`退休時你大約會有 <b>${fmtCompact(atRmed,cur)}</b>，${atRmed>=FI?'達標了':'還差一截'}。保守情況約 <b>${fmtCompact(atRlo,cur)}</b>，順的話可達 <b>${fmtCompact(atRhi,cur)}</b>。紅線是保守情境的落點。剩下的差距，主要靠持續投入和複利補上，你不必現在就有一大筆。`;}
+  else $('gaprange').textContent='';
+  // Zone 2: 退休之前的過渡 (Coast / Barista FIRE)
+  const g=cfg.ws*0.05+cfg.wb*0.019;let fhtml='';
+  if(R.n&&cfg.spending>0&&N>0){
+    fhtml+='<div class="firetitle">退休之前的過渡</div>';
+    let coast=null;for(let t=0;t<=N;t++){if(acc.med[t]>=FI/Math.pow(1+g,N-t)){coast=t;break;}}
+    if(coast!=null&&coast<N)
+      fhtml+=`<div class="fireline"><span class="term">Coast FIRE</span>　約 <b>${coast} 年後（${cfg.age+coast} 歲）</b>。到那天，你就能停止為退休存錢，只要找一份養得活當下生活的工作就好，剩下的交給複利滾到退休。`;
+    else
+      fhtml+=`<div class="fireline"><span class="term">Coast FIRE</span>　指你存夠了種子錢，從此不必再為退休存錢，只要養得活當下、其餘靠複利滾到退休。以目前的計畫還沒走到這個點，提高每月投入或降低目標支出可以更早抵達。`;
+    fhtml+='</div>';
+    const FIb=Math.max(0,(cfg.spending-cfg.barista))/cfg.safeRate;
+    if(cfg.barista>=cfg.spending)
+      fhtml+=`<div class="fireline"><span class="term">Barista FIRE</span>　你預估的兼職年收入已能支應全部生活，幾乎隨時都能轉成兼職、半退。`;
+    else{const bt=yearsTo(acc.med,FIb);
+      if(bt!=null)
+        fhtml+=`<div class="fireline"><span class="term">Barista FIRE</span>　約 <b>${bt} 年後（${cfg.age+bt} 歲）</b>。到那天，你的資產加上每年 ${fmtCompact(cfg.barista,cur)} 的兼職收入就足以支應生活，可以轉成兼職、半退，不必等到完全退休。`;
+      else
+        fhtml+=`<div class="fireline"><span class="term">Barista FIRE</span>　指你的資產加上一份兼職收入就足以支應生活、可以半退。以目前投入，60 年內還到不了這個門檻，可在進階調整兼職年收入。`;
+    }
+    fhtml+='</div>';
+  }
+  $('firebox').innerHTML=fhtml;
+
+  // Zone 3
+  renderTradeoffs(cfg,acc,FI,solvedN,R);
+
+  // advanced stats
+  const wmed=pctile(R.wd,0.5),medEnd=pctile(R.ends,0.5);
+  const stats=[
+    {k:'退休成功率',v:R.n?R.sr.toFixed(0)+'%':'·',x:R.n?(R.ok+'/'+R.n+' 段歷史'):'未達標'},
+    {k:'退休時資產 中位數',v:R.n?fmtCompact(atRmed,cur):'·',x:'真實購買力'},
+    {k:'結束資產 中位數',v:R.n?fmtCompact(medEnd,cur):'·',x:'退休末年'},
+    {k:'失敗路徑',v:R.fails+' 條',x:R.minFail?('最早第 '+R.minFail+' 年'):'無'},
+    {k:'年提領 中位數',v:R.n?fmtCompact(wmed,cur):'·',x:'退休期'},
+    {k:'每月投入 → 年',v:fmtCompact(cfg.annualContrib,cur),x:'真實'},
+    {k:'累積 / 退休 年數',v:N+' / '+cfg.length,x:cfg.manualAge?'手動指定':'工具求解'},
+    {k:'股債 退休前 / 後',v:`${Math.round(cfg.ws*100)}/${Math.round(cfg.wb*100)} → ${Math.round(cfg.wsPost*100)}/${Math.round(cfg.wbPost*100)}`,x:'配置切換'}
+  ];
+  $('statgrid').innerHTML=stats.map(c=>`<div class="stat"><div class="k">${c.k}</div><div class="v">${c.v}</div><div class="x">${c.x}</div></div>`).join('');
+  drawCharts();
+}
+
+function renderTradeoffs(cfg,acc,FI,baseN,R){
+  const cur=cfg.cur,box=$('tradeoff');
+  const clone=o=>Object.assign({},cfg,o);
+  const cards=[];
+  const spLess=Math.round(cfg.spending*0.85/10000)*10000;const dSpend=cfg.spending-spLess;
+  const nLess=freedomNMode(clone({spending:spLess}));
+  cards.push(tcard('少花一點','每年少花 '+fmtCompact(dSpend,cur),
+    (baseN!=null&&nLess!=null&&nLess<baseN)?`早 <b>${baseN-nLess} 年</b>退（${cfg.age+nLess} 歲）`:(nLess!=null?`${cfg.age+nLess} 歲可退`:'仍難達標')));
+  const moreM=5000;const nMore=freedomNMode(clone({annualContrib:cfg.annualContrib+moreM*12}));
+  cards.push(tcard('多投一點','每月多投 '+cur+moreM.toLocaleString('en-US'),
+    (baseN!=null&&nMore!=null&&nMore<baseN)?`早 <b>${baseN-nMore} 年</b>自由（${cfg.age+nMore} 歲）`:(nMore!=null?`${cfg.age+nMore} 歲可退`:'仍難達標')));
+  if(baseN!=null){const N2=baseN+5;const c2=clone({});c2.accumYears=N2;const R2=runMode(c2);
+    const cap=pctile(R2.atR,0.5)*cfg.safeRate;const dCap=cap-cfg.spending;
+    cards.push(tcard('晚一點退',`晚 5 年退（${cfg.age+N2} 歲）`,`成功率 <b>${R.sr.toFixed(0)}%→${R2.sr.toFixed(0)}%</b>，或每年可多花 ${fmtCompact(Math.max(0,dCap),cur)}`));
+  } else cards.push(tcard('晚一點退','先想辦法達標','達標後這裡會顯示晚退的好處'));
+  box.innerHTML=cards.join('');
+
+  const accD=accumSeriesMode(cfg,5);const nDelay=yearsTo(accD.med,FI);const wl=$('waitline');
+  if(baseN!=null&&nDelay!=null){const delta=nDelay-baseN;
+    wl.innerHTML=`拖延的代價：如果你<b>晚 5 年</b>才開始投入，自由日大約推遲到 ${cfg.age+nDelay} 歲，晚了約 ${delta} 年。最早投入的那幾筆錢，複利最久，這就是為什麼「現在開始」比「準備好再開始」重要。`;}
+  else if(baseN!=null)wl.innerHTML=`拖延的代價：晚 5 年才開始，可能就推到難以達標的地步。最早投入的錢複利最久，現在開始最划算。`;
+  else wl.innerHTML=`提醒：真正的風險通常不是市場波動，而是遲遲不開始。哪怕從小額起步，複利也需要時間發酵。`;
+}
+function tcard(k,lever,res){return `<div class="tcard"><div class="k">${k}</div><div class="lever">${lever}</div><div class="res">${res}</div></div>`;}
+
+/* ---------- charts ---------- */
+function setupCanvas(cv){const dpr=window.devicePixelRatio||1,r=cv.getBoundingClientRect();cv.width=r.width*dpr;cv.height=r.height*dpr;const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {ctx,w:r.width,h:r.height};}
+function drawPaths(cv,accessor,note,opt){
+  opt=opt||{};const {ctx,w,h}=setupCanvas(cv);ctx.clearRect(0,0,w,h);
+  const paths=lastResult.R.paths,cur=lastResult.cfg.cur;
+  if(!paths.length){$(note).textContent='無可回測路徑（累積與退休年數可能超過資料長度，或投入為 0）';return;}
+  const padL=62,padR=14,padT=30,padB=28,plotW=w-padL-padR,plotH=h-padT-padB;
+  const series=paths.map(accessor);const steps=Math.max(...series.map(s=>s.length));
+  let all=[];series.forEach(s=>s.forEach(v=>{if(isFinite(v))all.push(v);}));if(opt.fiLine)all.push(opt.fiLine);all.sort((a,b)=>a-b);
+  const realMax=all[all.length-1]||1;let yMax=pctile(all,0.97);if(opt.fiLine)yMax=Math.max(yMax,opt.fiLine*1.08);if(yMax<=0)yMax=realMax||1;yMax=Math.max(yMax,1);
+  const clipped=realMax>yMax*1.02;
+  const X=i=>padL+(steps<=1?0:i/(steps-1)*plotW);const Y=v=>padT+plotH-Math.min(v,yMax)/yMax*plotH;
+  const split=opt.markX!=null?opt.markX:0;
+  if(split>0&&split<steps){ctx.fillStyle='rgba(110,155,192,0.07)';ctx.fillRect(padL,padT,X(split)-padL,plotH);ctx.fillStyle='rgba(224,178,90,0.05)';ctx.fillRect(X(split),padT,w-padR-X(split),plotH);}
+  ctx.font='11px IBM Plex Mono';ctx.textBaseline='middle';
+  for(let gi=0;gi<=4;gi++){const v=yMax*gi/4,y=Y(v);ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(w-padR,y);ctx.stroke();ctx.fillStyle='#9aa1ab';ctx.textAlign='right';ctx.fillText(fmtCompact(v,cur),padL-8,y);}
+  if(opt.fiLine&&opt.fiLine<=yMax){const fy=Y(opt.fiLine);ctx.strokeStyle='rgba(242,204,123,0.6)';ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(padL,fy);ctx.lineTo(w-padR,fy);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#f2cc7b';ctx.textAlign='right';ctx.textBaseline='bottom';ctx.fillText('自由數字 '+fmtCompact(opt.fiLine,cur),w-padR-2,fy-3);}
+  ctx.textAlign='center';ctx.textBaseline='top';const xt=Math.min(6,steps-1);
+  for(let t=0;t<=xt;t++){const i=Math.round(t/xt*(steps-1));ctx.fillStyle='#9aa1ab';ctx.fillText(i+'',X(i),h-padB+8);}
+  ctx.textAlign='left';ctx.fillText(opt.xlabel||'年',padL,h-padB+8);
+  if(split>0){ctx.font='11px IBM Plex Mono';ctx.textBaseline='top';ctx.fillStyle='rgba(110,155,192,0.95)';ctx.textAlign='left';ctx.fillText('累積，你在存',padL+6,padT+5);ctx.fillStyle='rgba(242,204,123,0.95)';ctx.textAlign='right';ctx.fillText('退休，你在花',w-padR-6,padT+5);}
+  if(split>0&&split<steps){const mx=X(split);ctx.strokeStyle='rgba(241,239,232,0.55)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(mx,padT);ctx.lineTo(mx,padT+plotH);ctx.stroke();ctx.lineWidth=1;ctx.fillStyle='#dfe2e7';ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('退休'+(opt.retireAge?' · '+opt.retireAge+'歲':''),mx,padT-4);}
+  const drawEvery=Math.max(1,Math.ceil(paths.length/160));
+  paths.forEach((p,ci)=>{const s=series[ci],fail=!p.success;
+    if(ci%drawEvery!==0&&!fail)return;
+    if(split>0){ctx.strokeStyle='rgba(110,155,192,0.15)';ctx.beginPath();for(let i=0;i<=split&&i<s.length;i++){const x=X(i),y=Y(s[i]);i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();}
+    ctx.strokeStyle=fail?'rgba(224,137,130,0.42)':'rgba(224,178,90,0.11)';ctx.beginPath();for(let i=split;i<s.length;i++){const x=X(i),y=Y(s[i]);i===split?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();});
+  const med=[];for(let i=0;i<steps;i++){const col=[];series.forEach(s=>{if(i<s.length)col.push(s[i]);});col.sort((a,b)=>a-b);med.push(pctile(col,0.5));}
+  ctx.lineWidth=2.6;ctx.strokeStyle='#f2cc7b';ctx.beginPath();med.forEach((v,i)=>{const x=X(i),y=Y(v);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();ctx.lineWidth=1;
+  $(note).textContent=(clipped?'已裁切極端高值（最高 '+fmtCompact(realMax,cur)+'）以利檢視。':'')+(opt.foot||'');
+}
+function drawCharts(){if(!lastResult)return;const A=lastResult.N,age=lastResult.age;
+  drawPaths($('pathChart'),p=>p.full,'pathNote',{markX:A,retireAge:age+A,fiLine:lastResult.FI,xlabel:'年（從現在起）',foot:'金線是中位數路徑。'});
+  drawPaths($('wdChart'),p=>p.wd.concat(),'wdNote',{markX:0,xlabel:'退休第幾年',foot:'金線是中位數提領。'});}
+
+function syncAllocOne(sId,bId,sV,bV,bar,lS,lB,lC){let s=parseInt($(sId).value),b=parseInt($(bId).value);if(s+b>100){b=100-s;$(bId).value=b;}const c=100-s-b;
+  $(sV).textContent=s+'%';$(bV).textContent=b+'%';$(lS).textContent=s+'%';$(lB).textContent=b+'%';$(lC).textContent=c+'%';
+  const el=$(bar);el.children[0].style.width=s+'%';el.children[1].style.width=b+'%';el.children[2].style.width=c+'%';}
+function syncAlloc(){syncAllocOne('alStocks','alBonds','alStocksV','alBondsV','allocbar','lgS','lgB','lgC');syncAllocOne('alStocksPost','alBondsPost','alStocksPostV','alBondsPostV','allocbarPost','lgSp','lgBp','lgCp');}
+
+function setMode(m){MODE=m;$('modeHist').classList.toggle('on',m==='hist');$('modeMc').classList.toggle('on',m==='mc');
+  $('modenote').textContent=(m==='mc')?'從真實歷史隨機抽取連續 8 年區塊，組成 800 條沒真正走過的人生路徑。這是模擬，依賴抽樣假設。':'你的計畫走過 1871 年以來每一段真實市場歷史。';
+  render();}
+
+let timer=null;function schedule(){clearTimeout(timer);timer=setTimeout(render,80);}
+function init(){
+  buildStratSelect();
+  $('strat').addEventListener('change',()=>{renderStratParams();schedule();});
+  ['age','startCap','monthly','spend','safeRate','fee','barista','targetAge','cur'].forEach(id=>$(id).addEventListener('input',schedule));
+  $('manualAge').addEventListener('change',()=>{$('targetAgeRow').style.display=$('manualAge').checked?'flex':'none';schedule();});
+  $('length').addEventListener('input',()=>{$('lenVal').textContent=$('length').value+' 年';schedule();});
+  ['alStocks','alBonds','alStocksPost','alBondsPost'].forEach(id=>$(id).addEventListener('input',()=>{syncAlloc();schedule();}));
+  $('addFlow').addEventListener('click',()=>{addFlow();schedule();});
+  $('modeHist').addEventListener('click',()=>setMode('hist'));
+  $('modeMc').addEventListener('click',()=>setMode('mc'));
+  window.addEventListener('resize',()=>{clearTimeout(timer);timer=setTimeout(drawCharts,80);});
+  renderStratParams();syncAlloc();$('lenVal').textContent='30 年';
+  setMode('hist');
+}
+init();
+</script>
+</body>
+</html>
