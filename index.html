@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>別再替你討厭的人打工了｜FIRE 全程試算</title>
+<title>爬出地獄之路｜FIRE 全程試算</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,8 +26,8 @@
   header{padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:24px}
   .brand h1{font-family:var(--disp);font-weight:500;font-size:33px;letter-spacing:-0.01em;line-height:1.08}
   .brand h1 em{font-style:italic;color:var(--gold-bright);font-weight:400}
-  .brand p{color:var(--txt2);font-size:15px;margin-top:10px;max-width:680px;line-height:1.65}
-  .grid{display:grid;grid-template-columns:344px 1fr;gap:24px;align-items:start}
+  .brand p{color:var(--txt2);font-size:15px;margin-top:10px;line-height:1.65}
+  .grid{display:grid;grid-template-columns:400px 1fr;gap:24px;align-items:start}
   @media(max-width:900px){.grid{grid-template-columns:1fr}}
   .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
   .seclabel{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:9px}
@@ -65,6 +65,13 @@
 
   .zone{margin-bottom:22px}
   .modebar{display:flex;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap}
+  .stickybar{position:sticky;top:10px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:rgba(15,17,21,0.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line2);border-radius:12px;padding:13px 19px;margin-bottom:18px;box-shadow:0 8px 22px rgba(0,0,0,0.28)}
+  .sb-main{display:flex;align-items:baseline;gap:11px}
+  .sb-age{font-family:var(--disp);font-size:23px;font-weight:600;color:var(--gold-bright);line-height:1}
+  .sb-sub{font-size:13.5px;color:var(--txt2);font-family:var(--mono)}
+  .sb-rate{display:flex;align-items:center;gap:9px}
+  .sb-pct{font-family:var(--mono);font-size:21px;font-weight:600;color:var(--gold-bright)}
+  .sb-word{font-family:var(--mono);font-size:13px}
   .seg{display:inline-flex;background:var(--ink2);border:1px solid var(--line2);border-radius:11px;padding:3px}
   .seg button{background:transparent;border:none;color:var(--txt2);font-family:var(--mono);font-size:14px;padding:9px 18px;border-radius:8px;cursor:pointer;font-weight:500;transition:.15s}
   .seg button.on{background:var(--gold-dim);color:var(--gold-bright)}
@@ -122,10 +129,10 @@
   details.adv>summary::-webkit-details-marker{display:none}
   details.adv>summary::before{content:"▸";color:var(--gold);transition:.15s;font-size:12px} details.adv[open]>summary::before{content:"▾"}
   details.adv .advbody{padding:4px 22px 22px;border-top:1px solid var(--line)}
-  .advgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px 26px;margin-top:18px}
+  .advgrid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:18px}
   @media(max-width:620px){.advgrid{grid-template-columns:1fr}}
   .advgrid .full{grid-column:1/-1}
-  .allocpair{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .allocpair{display:grid;grid-template-columns:1fr;gap:14px}
   @media(max-width:620px){.allocpair{grid-template-columns:1fr}}
   .allocbox{background:var(--ink2);border:1px solid var(--line);border-radius:11px;padding:14px}
   .allocbox .t{font-size:13.5px;font-weight:600;color:var(--txt);margin-bottom:3px}
@@ -143,6 +150,10 @@
   .foot summary::-webkit-details-marker{display:none} .foot summary::before{content:"▸ ";color:var(--gold)} .foot details[open] summary::before{content:"▾ "}
   .foot .body{margin-top:12px;line-height:1.8;color:var(--txt2)}
   .disclaimer{margin-top:16px;padding:13px 16px;background:rgba(224,137,130,0.07);border:1px solid rgba(224,137,130,0.2);border-radius:10px;color:var(--txt2);font-size:13px;line-height:1.65}
+  .methods{margin-top:14px;display:grid;gap:10px}
+  .method{padding:12px 15px;background:rgba(224,137,130,0.07);border:1px solid rgba(224,137,130,0.2);border-bottom:2px solid var(--bad);border-radius:10px;font-size:13.5px;color:var(--txt2);line-height:1.65}
+  .method b{color:var(--gold-bright);font-family:var(--mono);font-size:13px;letter-spacing:0.04em}
+  .methods-foot{font-size:13px;color:var(--txt2);padding-left:3px}
   .src{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.8;color:var(--txt2)}
   .src a{color:var(--gold)}
 </style>
@@ -151,7 +162,7 @@
 <div class="wrap">
   <header>
     <div class="brand">
-      <h1>別再替討厭的人打工了</h1>
+      <h1>爬出地獄之路</h1>
       <p>填四個你直覺就答得出來的數字：現在幾歲、手上有多少、每月能投入多少、退休後每年想花多少。用 1871 年以來的真實市場歷史，告訴你大概幾歲能離開、這筆錢撐不撐得住、以及你還差多遠。錢晚一年開始，才是真正的風險。</p>
     </div>
   </header>
@@ -181,63 +192,8 @@
           <input type="number" id="spend" value="960000" step="50000" min="0">
         </div>
       </div>
-    </div>
-
-    <div class="results">
-      <div class="modebar">
-        <div class="seg"><button id="modeHist" class="on">歷史回測</button><button id="modeMc">蒙地卡羅</button></div>
-        <span class="modenote" id="modenote"></span>
-      </div>
-      <div class="zone">
-        <div class="q">① 我什麼時候能退休</div>
-        <div class="herobox">
-          <div class="lead" id="lead">·</div>
-          <div class="herometa">
-            <span class="vtag" id="vtag"><span class="pct" id="srate">·</span><span id="vword"></span></span>
-            <span class="herorange" id="herorange"></span>
-          </div>
-          <div class="heronote" id="heronote"></div>
-        </div>
-      </div>
-
-      <div class="zone">
-        <div class="q">② 我離目標還差多遠</div>
-        <div class="gapcard">
-          <div class="gaphead">
-            <div><div class="label">你的自由數字</div><div class="fi" id="finum">·</div></div>
-            <div style="text-align:right"><div class="label">退休時預估資產（中位數）</div><div class="fi" id="atretire">·</div></div>
-          </div>
-          <div class="bar"><div class="barfill" id="barfill" style="width:0%"></div><div class="bartick" id="bartick" style="left:0%;display:none"></div></div>
-          <div class="barlbls"><span id="barL">今天</span><span id="barR">自由數字</span></div>
-          <div class="gaprange" id="gaprange"></div>
-          <div id="firebox"></div>
-        </div>
-      </div>
-
-      <div class="zone">
-        <div class="q">③ 我要妥協多少</div>
-        <div class="tradeoff" id="tradeoff"></div>
-        <div class="waitline" id="waitline"></div>
-      </div>
-
-      <div class="zone">
-        <div class="q">你的錢一路上會怎麼變</div>
-        <div class="panel chartcard">
-          <div class="chart-head">
-            <h3>從現在到退休，再到終點</h3>
-            <div class="leg">
-              <span><i style="background:var(--acc)"></i>累積，你在存</span>
-              <span><i style="background:var(--gold)"></i>退休，你在花</span>
-              <span><i style="background:var(--bad)"></i>失敗路徑</span>
-            </div>
-          </div>
-          <div class="canvas-wrap"><canvas id="pathChart"></canvas></div>
-          <div class="chartnote" id="pathNote"></div>
-        </div>
-      </div>
-
       <details class="adv">
-        <summary>進階設定與細節（新手可以完全不用碰）</summary>
+        <summary>進階設定（新手可以完全不用碰）</summary>
         <div class="advbody">
           <div class="advgrid">
             <div class="full">
@@ -281,11 +237,6 @@
               <div class="sub">基金或 ETF 的內扣總開銷。</div>
               <div class="inrow"><input type="number" id="fee" value="0.1" step="0.05" min="0" max="5" style="width:110px"><span class="suffix">% / 年</span></div>
             </div>
-            <div>
-              <label>兼職年收入（Barista FIRE 用）</label>
-              <div class="sub">若你打算在完全退休前做兼職，填入預估的年收入，就能看到更早的半退時點。</div>
-              <input type="number" id="barista" value="360000" step="50000" min="0">
-            </div>
             <div class="full">
               <label>提領策略</label>
               <select id="strat" style="margin-top:9px"></select>
@@ -300,16 +251,71 @@
               <button class="addbtn" id="addFlow">＋ 新增現金流</button>
             </div>
           </div>
-
-          <div class="stats" id="statgrid"></div>
-
-          <div class="chartcard" style="margin-top:20px">
-            <div class="chart-head"><h3>退休後每年實際領多少</h3><div class="leg"><span><i style="background:var(--gold)"></i>中位數</span></div></div>
-            <div class="canvas-wrap" style="height:210px"><canvas id="wdChart"></canvas></div>
-            <div class="chartnote" id="wdNote"></div>
-          </div>
         </div>
       </details>
+    </div>
+
+    <div class="results">
+      <div class="stickybar" id="stickybar">
+        <div class="sb-main"><span class="sb-age" id="sbAge">·</span><span class="sb-sub" id="sbYrs"></span></div>
+        <div class="sb-rate"><span class="sb-pct" id="sbRate">·</span><span class="sb-word" id="sbWord"></span></div>
+      </div>
+      <div class="modebar">
+        <div class="seg"><button id="modeHist" class="on">歷史回測</button><button id="modeMc">蒙地卡羅</button></div>
+        <span class="modenote" id="modenote"></span>
+      </div>
+      <div class="zone">
+        <div class="q">① 我什麼時候能退休</div>
+        <div class="herobox">
+          <div class="lead" id="lead">·</div>
+          <div class="herometa">
+            <span class="vtag" id="vtag"><span class="pct" id="srate">·</span><span id="vword"></span></span>
+            <span class="herorange" id="herorange"></span>
+          </div>
+          <div class="heronote" id="heronote"></div>
+        </div>
+      </div>
+
+      <div class="zone">
+        <div class="q">細部數字</div>
+        <div class="stats" id="statgrid"></div>
+      </div>
+
+      <div class="zone">
+        <div class="q">② 我離目標還差多遠</div>
+        <div class="gapcard">
+          <div class="gaphead">
+            <div><div class="label">你的自由數字</div><div class="fi" id="finum">·</div></div>
+            <div style="text-align:right"><div class="label">退休時預估資產（中位數）</div><div class="fi" id="atretire">·</div></div>
+          </div>
+          <div class="bar"><div class="barfill" id="barfill" style="width:0%"></div><div class="bartick" id="bartick" style="left:0%;display:none"></div></div>
+          <div class="barlbls"><span id="barL">今天</span><span id="barR">自由數字</span></div>
+          <div class="gaprange" id="gaprange"></div>
+        </div>
+      </div>
+
+      <div class="zone">
+        <div class="q">③ 我要妥協多少</div>
+        <div class="tradeoff" id="tradeoff"></div>
+        <div class="waitline" id="waitline"></div>
+      </div>
+
+      <div class="zone">
+        <div class="q">你的錢一路上會怎麼變</div>
+        <div class="panel chartcard">
+          <div class="chart-head">
+            <h3>從現在到退休，再到終點</h3>
+            <div class="leg">
+              <span><i style="background:var(--acc)"></i>累積，你在存</span>
+              <span><i style="background:var(--gold)"></i>退休，你在花</span>
+              <span><i style="background:var(--bad)"></i>失敗路徑</span>
+            </div>
+          </div>
+          <div class="canvas-wrap"><canvas id="pathChart"></canvas></div>
+          <div class="chartnote" id="pathNote"></div>
+        </div>
+      </div>
+
 
       <div class="foot">
         <b>怎麼看這張圖</b>　每一條線是一個歷史起點。左半藍色是你在存錢、資產往上爬，右半金色是你退休後在花錢，中間那條直線是退休的那一刻，水平虛線是你的自由數字。哪條線跌到 0，就代表那段歷史在計畫結束前把錢花光了。
@@ -322,13 +328,13 @@
             <b>何時能退休</b>　自由數字＝退休年支出 ÷ 安全提領率（4% 時就是 25 倍）。工具找出中位數路徑下、資產第一次達到自由數字的年份，就是你的自由年齡，並給樂觀（p90）與保守（p10）區間。<br>
             <b>提領率與成功率連動</b>　退休後每年提領你設定的年支出，跨所有歷史起點回測會不會在計畫結束前花光。提領率調高，自由數字變小、退得早，但提領占資產比例高、成功率下降。這就是早退與安穩之間的取捨。<br>
             <b>退休前後分開配置</b>　累積期套用退休前配置、提領期套用退休後配置，在退休那一年切換。可呈現先積極後保守的真實做法。<br>
-            <b>Coast / Barista FIRE</b>　規劃用的啟發式估算，假設一個由配置推估的真實報酬（股 5%、債 1.9%、現金 0%）讓資產光靠複利成長。<br>
-            <b>蒙地卡羅（區塊重抽樣）</b>　切換到此視角時，從真實歷史隨機抽取連續 8 年的區塊接成新路徑，股、債、通膨同年一起抽以保留相關性，生成 800 條模擬人生。保留真實的肥尾與序列風險，但畢竟是模擬，數字依賴抽樣假設，請與歷史回測對照著看。結果使用固定亂數種子，因此同樣輸入每次顯示一致。<br>
             <b>幣別</b>　報酬引擎為美國市場歷史資料，幣別僅為顯示標籤。
           </div>
         </details>
-        <div class="disclaimer">
-          歷史回測呈現的是「過去若重演會如何」，<b>不是預測</b>。Coast 與 Barista FIRE 是讓你提早離開有毒環境的規劃參考，<b>不是叫你明天裸辭</b>。真正該擔心的，往往不是市場波動，而是遲遲不開始。
+        <div class="methods">
+          <div class="method"><b>歷史回測</b>　你的計畫走過 1871 年以來每一段真實市場歷史，呈現的是「過去若重演會如何」，不是預測，也無法涵蓋未曾發生的情境。</div>
+          <div class="method"><b>蒙地卡羅</b>　從真實歷史隨機抽取連續 8 年的區塊接成新路徑，股、債、通膨同年一起抽以保留相關性，生成 800 條模擬人生。保留真實的尾部與序列風險，結果使用固定亂數種子，同樣輸入每次顯示一致。</div>
+          <div class="methods-foot">兩者數字請對照查看。</div>
         </div>
         <div class="src">
           <b style="color:var(--txt);font-family:var(--mono);letter-spacing:0.04em">來源、授權與聲明</b><br>
@@ -519,13 +525,14 @@ function readConfig(){
   return {age:parseInt($('age').value)||0,startCap:Math.max(0,parseFloat($('startCap').value)||0),
     annualContrib:Math.max(0,(parseFloat($('monthly').value)||0)*12),
     spending:Math.max(0,parseFloat($('spend').value)||0),safeRate:Math.max(0.01,(parseFloat($('safeRate').value)||4)/100),
-    length:parseInt($('length').value),barista:Math.max(0,parseFloat($('barista').value)||0),
+    length:parseInt($('length').value),
     manualAge:$('manualAge').checked,targetAge:parseInt($('targetAge').value)||65,
     ws:pre.ws,wb:pre.wb,wc:pre.wc,wsPost:post.ws,wbPost:post.wb,wcPost:post.wc,
     fee:(parseFloat($('fee').value)||0)/100,flows,strat:sp.strat,sp:sp.sp,fn:sp.fn,cur:$('cur').value};
 }
 
 /* ---------- render ---------- */
+function setSticky(age,yrs,rate,word,col){$('sbAge').textContent=age;$('sbYrs').textContent=yrs;$('sbRate').textContent=rate;$('sbRate').style.color=col;$('sbWord').textContent=word;$('sbWord').style.color=col;}
 function render(){
   const cfg=readConfig(),cur=cfg.cur;
   const acc=accumSeriesMode(cfg,0);const FI=cfg.spending/cfg.safeRate;
@@ -539,11 +546,11 @@ function render(){
 
   // Zone 1
   const lead=$('lead');
-  if(cfg.spending<=0){lead.innerHTML='先填入「退休後每年想花多少」。';$('herorange').textContent='';$('heronote').textContent='';$('srate').textContent='·';$('vword').textContent='';$('vtag').style.background='transparent';$('vtag').style.border='1px solid var(--line2)';$('vtag').style.color='var(--txt2)';}
+  if(cfg.spending<=0){lead.innerHTML='先填入「退休後每年想花多少」。';$('herorange').textContent='';$('heronote').textContent='';$('srate').textContent='·';$('vword').textContent='';$('vtag').style.background='transparent';$('vtag').style.border='1px solid var(--line2)';$('vtag').style.color='var(--txt2)';setSticky('·','','·','','var(--txt2)');}
   else if(!cfg.manualAge&&!reachable){
     lead.innerHTML='以目前的投入，<b>60 年內</b>還達不到你的自由數字。';
     $('herorange').textContent='';$('heronote').textContent='別停在這裡。往下看「我要妥協多少」，少花一點、或每月多投一些，數字就會動起來。';
-    $('srate').textContent='·';$('vword').textContent='達標前無成功率';$('vtag').style.background='transparent';$('vtag').style.color='var(--txt2)';$('vtag').style.border='1px solid var(--line2)';
+    $('srate').textContent='·';$('vword').textContent='達標前無成功率';$('vtag').style.background='transparent';$('vtag').style.color='var(--txt2)';$('vtag').style.border='1px solid var(--line2)';setSticky('60 年內未達','','·','','var(--txt2)');
   } else {
     const fage=cfg.age+N;
     if(N<=0)lead.innerHTML='你<b>現在</b>就達到自由數字了。';
@@ -558,6 +565,7 @@ function render(){
     else{col='var(--bad)';word='高風險';note='太多情況撐不到最後，多半是提領率太高或花費偏高。';}
     $('srate').textContent=sr.toFixed(0)+'%';$('vword').textContent=word;$('vtag').style.color=col;$('vtag').style.border='1px solid '+col;
     $('vtag').style.background=(sr>=95)?'rgba(127,191,154,0.14)':(sr>=85)?'rgba(242,204,123,0.14)':(sr>=70)?'rgba(224,178,90,0.14)':'rgba(224,137,130,0.14)';
+    setSticky(N<=0?'現在':fage+' 歲', N<=0?'已達標':'還有 '+N+' 年', sr.toFixed(0)+'%', word, col);
     $('heronote').textContent='成功率，就是退休後每年花你設定的金額，在 '+R.n+' 段歷史裡撐到最後的比例。'+note;
   }
 
@@ -573,28 +581,6 @@ function render(){
   $('barR').textContent='自由數字 '+fmtCompact(FI,cur);
   if(R.n){$('gaprange').innerHTML=`退休時你大約會有 <b>${fmtCompact(atRmed,cur)}</b>，${atRmed>=FI?'達標了':'還差一截'}。保守情況約 <b>${fmtCompact(atRlo,cur)}</b>，順的話可達 <b>${fmtCompact(atRhi,cur)}</b>。紅線是保守情境的落點。剩下的差距，主要靠持續投入和複利補上，你不必現在就有一大筆。`;}
   else $('gaprange').textContent='';
-  // Zone 2: 退休之前的過渡 (Coast / Barista FIRE)
-  const g=cfg.ws*0.05+cfg.wb*0.019;let fhtml='';
-  if(R.n&&cfg.spending>0&&N>0){
-    fhtml+='<div class="firetitle">退休之前的過渡</div>';
-    let coast=null;for(let t=0;t<=N;t++){if(acc.med[t]>=FI/Math.pow(1+g,N-t)){coast=t;break;}}
-    if(coast!=null&&coast<N)
-      fhtml+=`<div class="fireline"><span class="term">Coast FIRE</span>　約 <b>${coast} 年後（${cfg.age+coast} 歲）</b>。到那天，你就能停止為退休存錢，只要找一份養得活當下生活的工作就好，剩下的交給複利滾到退休。`;
-    else
-      fhtml+=`<div class="fireline"><span class="term">Coast FIRE</span>　指你存夠了種子錢，從此不必再為退休存錢，只要養得活當下、其餘靠複利滾到退休。以目前的計畫還沒走到這個點，提高每月投入或降低目標支出可以更早抵達。`;
-    fhtml+='</div>';
-    const FIb=Math.max(0,(cfg.spending-cfg.barista))/cfg.safeRate;
-    if(cfg.barista>=cfg.spending)
-      fhtml+=`<div class="fireline"><span class="term">Barista FIRE</span>　你預估的兼職年收入已能支應全部生活，幾乎隨時都能轉成兼職、半退。`;
-    else{const bt=yearsTo(acc.med,FIb);
-      if(bt!=null)
-        fhtml+=`<div class="fireline"><span class="term">Barista FIRE</span>　約 <b>${bt} 年後（${cfg.age+bt} 歲）</b>。到那天，你的資產加上每年 ${fmtCompact(cfg.barista,cur)} 的兼職收入就足以支應生活，可以轉成兼職、半退，不必等到完全退休。`;
-      else
-        fhtml+=`<div class="fireline"><span class="term">Barista FIRE</span>　指你的資產加上一份兼職收入就足以支應生活、可以半退。以目前投入，60 年內還到不了這個門檻，可在進階調整兼職年收入。`;
-    }
-    fhtml+='</div>';
-  }
-  $('firebox').innerHTML=fhtml;
 
   // Zone 3
   renderTradeoffs(cfg,acc,FI,solvedN,R);
@@ -672,8 +658,7 @@ function drawPaths(cv,accessor,note,opt){
   $(note).textContent=(clipped?'已裁切極端高值（最高 '+fmtCompact(realMax,cur)+'）以利檢視。':'')+(opt.foot||'');
 }
 function drawCharts(){if(!lastResult)return;const A=lastResult.N,age=lastResult.age;
-  drawPaths($('pathChart'),p=>p.full,'pathNote',{markX:A,retireAge:age+A,fiLine:lastResult.FI,xlabel:'年（從現在起）',foot:'金線是中位數路徑。'});
-  drawPaths($('wdChart'),p=>p.wd.concat(),'wdNote',{markX:0,xlabel:'退休第幾年',foot:'金線是中位數提領。'});}
+  drawPaths($('pathChart'),p=>p.full,'pathNote',{markX:A,retireAge:age+A,fiLine:lastResult.FI,xlabel:'年（從現在起）',foot:'金線是中位數路徑。'});}
 
 function syncAllocOne(sId,bId,sV,bV,bar,lS,lB,lC){let s=parseInt($(sId).value),b=parseInt($(bId).value);if(s+b>100){b=100-s;$(bId).value=b;}const c=100-s-b;
   $(sV).textContent=s+'%';$(bV).textContent=b+'%';$(lS).textContent=s+'%';$(lB).textContent=b+'%';$(lC).textContent=c+'%';
@@ -688,7 +673,7 @@ let timer=null;function schedule(){clearTimeout(timer);timer=setTimeout(render,8
 function init(){
   buildStratSelect();
   $('strat').addEventListener('change',()=>{renderStratParams();schedule();});
-  ['age','startCap','monthly','spend','safeRate','fee','barista','targetAge','cur'].forEach(id=>$(id).addEventListener('input',schedule));
+  ['age','startCap','monthly','spend','safeRate','fee','targetAge','cur'].forEach(id=>$(id).addEventListener('input',schedule));
   $('manualAge').addEventListener('change',()=>{$('targetAgeRow').style.display=$('manualAge').checked?'flex':'none';schedule();});
   $('length').addEventListener('input',()=>{$('lenVal').textContent=$('length').value+' 年';schedule();});
   ['alStocks','alBonds','alStocksPost','alBondsPost'].forEach(id=>$(id).addEventListener('input',()=>{syncAlloc();schedule();}));
