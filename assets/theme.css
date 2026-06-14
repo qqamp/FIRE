@@ -203,3 +203,28 @@ details.adv .advbody{padding:4px 22px 22px;border-top:1px solid var(--line)}
 .seg-mode{display:inline-flex;background:var(--ink2);border:1px solid var(--line2);border-radius:10px;padding:3px}
 .seg-mode button{background:transparent;border:none;color:var(--txt2);font-family:var(--mono);font-size:13px;padding:8px 14px;border-radius:7px;cursor:pointer}
 .seg-mode button.on{background:var(--gold-dim);color:var(--gold-bright)}
+
+/* ---------- 模組1：分批建倉 ---------- */
+.tr-batch{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:13px;margin-bottom:10px}
+.tr-batch-h{font-family:var(--mono);font-size:12px;color:var(--gold);margin-bottom:9px;letter-spacing:0.04em}
+.tr-tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.tr-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:760px}
+.tr-table th{font-family:var(--mono);font-size:11px;letter-spacing:0.03em;text-transform:uppercase;color:var(--txt3);font-weight:500;text-align:left;padding:11px 12px;background:var(--ink2);border-bottom:1px solid var(--line2);white-space:nowrap}
+.tr-table td{padding:11px 12px;border-bottom:1px solid var(--line);color:var(--txt);vertical-align:middle}
+.tr-table tr:last-child td{border-bottom:none}
+.tr-table td.num{font-family:var(--mono);text-align:right;white-space:nowrap}
+.tr-table th:nth-child(n+3){text-align:right}
+.tr-table th:nth-child(2),.tr-table th:last-child{text-align:left}
+.tr-table tr.tr-done{background:var(--gold-dim)}
+.tr-table tr.tr-done td{color:var(--gold-bright)}
+.tr-exec{display:flex;align-items:center;gap:7px;font-size:13px;cursor:pointer;white-space:nowrap;font-weight:600}
+.tr-exec input{width:auto;accent-color:var(--gold)}
+.tr-trig{max-width:200px;line-height:1.45}
+.tr-muted{color:var(--txt3)}
+.lamp{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.lamp-ok{color:var(--ok)} .lamp-warn{color:var(--gold-bright)} .lamp-bad{color:var(--bad)}
+.tr-bad{color:var(--bad);font-family:var(--mono);font-size:12px;margin-left:4px}
+.tr-warn{color:var(--gold-bright);font-family:var(--mono);font-size:12.5px}
+.tr-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:11px;font-family:var(--mono);font-size:12px;color:var(--txt2)}
+.tr-legend .leg-i{display:inline-flex;align-items:center;gap:6px}
+.tr-legend .leg-i i{width:12px;height:12px;border-radius:3px;display:inline-block}
