@@ -228,3 +228,26 @@ details.adv .advbody{padding:4px 22px 22px;border-top:1px solid var(--line)}
 .tr-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:11px;font-family:var(--mono);font-size:12px;color:var(--txt2)}
 .tr-legend .leg-i{display:inline-flex;align-items:center;gap:6px}
 .tr-legend .leg-i i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* ---------- 模組2：組合偏離 ---------- */
+textarea{width:100%;background:var(--ink2);border:1px solid var(--line2);color:var(--txt);font-family:var(--mono);font-size:13px;padding:11px 13px;border-radius:9px;outline:none;transition:.15s;line-height:1.55;resize:vertical}
+textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-dim)}
+.lampgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.lampcard{background:var(--ink2);border:1px solid var(--line);border-left-width:3px;border-radius:11px;padding:13px 15px}
+.lampcard.ok{border-left-color:var(--ok)} .lampcard.warn{border-left-color:var(--gold-bright)} .lampcard.bad{border-left-color:var(--bad)} .lampcard.exempt{border-left-color:var(--acc)}
+.lampcard .lc-k{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--txt);letter-spacing:0.03em}
+.lampcard .lc-v{font-family:var(--mono);font-size:20px;font-weight:600;margin:3px 0;color:var(--txt)}
+.lampcard.ok .lc-v{color:var(--ok)} .lampcard.warn .lc-v{color:var(--gold-bright)} .lampcard.bad .lc-v{color:var(--bad)} .lampcard.exempt .lc-v{color:var(--acc)}
+.lampcard .lc-x{font-size:12px;color:var(--txt2);line-height:1.5}
+.badge{display:inline-block;background:var(--acc-dim);color:var(--acc);font-family:var(--mono);font-size:11px;padding:1px 7px;border-radius:10px;margin-right:4px}
+.dv-table td{vertical-align:middle}
+.dv-table .dv-tk{font-family:var(--mono);font-weight:600;white-space:nowrap}
+.dv-track-cell{width:46%;min-width:200px}
+.dv-track{position:relative;height:18px;background:var(--ink2);border:1px solid var(--line2);border-radius:5px;overflow:hidden}
+.dv-center{position:absolute;left:50%;top:0;width:1px;height:100%;background:var(--txt3);transform:translateX(-0.5px)}
+.dv-fill{position:absolute;top:0;height:100%}
+.dv-fill.over{background:rgba(224,178,90,0.55)} .dv-fill.under{background:rgba(110,155,192,0.55)}
+.dv-fill.over.hot{background:var(--gold-bright)} .dv-fill.under.hot{background:var(--acc)}
+.dv-dev{font-family:var(--mono);white-space:nowrap;color:var(--txt2)}
+.dv-dev.hot{color:var(--gold-bright);font-weight:600}
+.dv-hotrow td{background:rgba(224,178,90,0.06)}
